@@ -21,40 +21,6 @@ body{
     font-weight: bold;
     color:#fff;
 }
-.header input[type=button]{
-    display: inline;
-    padding: 10px 22px;
-    text-align: center;
-    text-decoration: none;
-    margin-top:5px;
-    font-size: 13px;
-    font-weight: bold;
-    color:#527881;
-    background: #c4e1ed;
-    border: 1px solid;
-    border-color: #b4ccce #b3c0c8 #9eb9c2;
-    border-radius: 16px;
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    box-shadow:0 1px 2px rgba(0, 0, 0, 0.15);
-}
-input[type=button]{
-    -moz-transition: background .1s ease-in;
-    -o-transition: background .1s ease-in;
-    -webkit-transition: background .1s ease-in;
-    transition: background .1s ease-in;
-}
-input[type=button]:hover {
-    cursor: pointer;
-    background: #9dcde1;
-}
-input[type=button]:active {
-  background: #77bad4;
-  border-color: #9eb9c2 #b3c0c8 #b4ccce;
-  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-}
 .header h1{
     text-align: left;
     margin-left: 15px;
@@ -77,7 +43,7 @@ input[type=button]:active {
     margin-top: 10px;
     padding: 0;
     overflow: hidden;
-    background-color: #E6E6FA;
+    background-color: #A0D5FC;
     border-radius: 10px;
 }
 
@@ -92,10 +58,11 @@ input[type=button]:active {
     text-align: right;
 }
 .navigation li a {
+    font-weight: bold;
     display: block;
     color: #404040;
     text-align: center;
-    padding: 16px 16px;
+    padding: 16px 24px;
     text-decoration: none;
 }
 
@@ -108,84 +75,105 @@ input[type=button]:active {
     border-radius: 0px;
     padding: 0px;
     position:absolute;
+    z-index:9999;
     margin-top:0px;
 }
 .navigation ul ul li{
     float: none;
     position: relative;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 .navigation ul ul li:hover{
     background: #CCCEE8;
+}
+.navigation ul ul li a{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: normal;
 }
 /* We only want block display when we hover li elements.
  > is to target ul within the li tags */
 .navigation ul li:hover > ul{
     display: block;
 }
-.AboutApp{
-    background: #76b852; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #76b852 , #8DC26F); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #76b852 , #8DC26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+.about_section{
+    /*A8F24B*/
+    background: #303030;
     height:150px;
     border-radius: 10px;
-    color:#404040;
+    color:#0ca3d2;
 }
-.AboutApp h3{
+.about_section h3{
     text-align: center;
     padding-top: 10px;
 }
-.AboutApp p{
+.about_section p{
     margin: 20px;
 }
-.posts_header h4{
-    margin-top: 25px;
+
+.post_section h4{
+    margin-top: 20px;
     font-size: 15px;
     margin-bottom: 10px;
 
 }
-.posts_header hr{
+.post_section hr{
     height:10px;
     border: 0;
     box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.5);
 }
 
+.post_section div{
+    -moz-transition: background .2s ease-in;
+    -o-transition: background .2s ease-in;
+    -webkit-transition: background .2s ease-in;
+    transition: background .2s ease-in;
+}
+
+.post_section div:hover{
+    background: #303030;
+    cursor: pointer;
+}
+
 .post {
-    list-style-type: none;
-    background-color: white;
-    padding-left: 20px;
-    margin-left: -39px;
-    padding-top: 5px;
-    border-bottom: solid 1px;
-    border-radius: 5px;
-    width: 100%;
-    height:100px;
-    overflow: scroll;
+    background: white;
+    padding: 10px;
+    border-bottom: solid 1px #808080;
+    overflow: hidden;
 }
 
 .post .post_title{
     font-size: 14px;
-    float:left;
-    margin-top: 18px;
-    margin-left:10px;
+    float: left;
+    margin-left: 10px;
     width: 70%;
     text-align: left;
+    text-decoration: none;
+    color: #0ca3d2;
 }
-.post p{
-    text-align: right;
-    margin-right: 15px;
-}
+
 .post a{
     text-decoration: none;
     color: #0ca3d2;
 }
-.post a:hover{
-    color: blue;
-}
-.Search_bar{
+
+.post p{
+    float: right
+    width: 30%;
     text-align: right;
+    margin-right: 15px;
+    color: #777;
 }
-.Search_bar button{
+
+.post .date{
+    color: #777;
+}
+
+.search_bar{
+    text-align: left;
+}
+.search_bar button{
     position: relative;
     left: -10px;
     padding: 6px 15px;
@@ -195,9 +183,118 @@ input[type=button]:active {
     color: #527881;
     box-shadow:0 1px 2px rgba(0, 0, 0, 0.15);
 }
-.Search_bar input{
+.search_bar input{
     right: 5px;
     padding: 6px 15px;
     border: 0 solid;
     border-radius: 5px 0 0 5px;
+}
+
+.create_post_form{
+    position: relative;
+    margin:0 auto;
+    margin-top: 20px;
+    padding: 20px 20px 20px;
+    width: 80%;
+    background: white;
+}
+.create_post_form h1{
+    padding: 10px;
+    margin:-20px -20px 21px;
+    line-height: 40px;
+    font-size: 25px;
+    font-weight: bold;
+    color:#555;
+    text-align: center;
+    background: #E6E6FA;
+    border-bottom: 1px solid #cfcfcf;
+    border-radius: 3px 3px 0 0;
+ }
+ .create_post_form .label{
+    font-size: 18px;
+    font-weight: bold;
+    color:#555;
+    text-align: left;
+    margin-bottom: 0px;
+ }
+.create_post_form p{
+    margin: 20px 0 0;
+}
+.create_post_form input[type=text]{
+  margin: 5px;
+  margin-top: 0px;
+  padding: 0 10px;
+  width: 98%;
+  height:38px;
+  color: #404040;
+  background: white;
+  border:1px solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius: 3px;
+  outline: 5px solid #eff4f7;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.create_post_form textarea{
+  margin: 5px;
+  margin-top: 0px;
+  padding: 0 10px;
+  width: 98%;
+  height:38px;
+  color: #404040;
+  background: white;
+  border:1px solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius: 3px;
+  outline: 5px solid #eff4f7;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.create_post_form select{
+  margin: 5px;
+  margin-top: 0px;
+  padding: 0 10px;
+  width: 98%;
+  height:38px;
+  color: #404040;
+  background: white;
+  border:1px solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius: 3px;
+  outline: 5px solid #eff4f7;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.create_post_form .submit_button{
+    text-align: right;
+}
+
+.submit_button{
+    display: inline;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+    margin-top:5px;
+    font-size: 13px;
+    font-weight: bold;
+    color:#527881;
+    background: #c4e1ed;
+    border: 1px solid;
+    border-color: #b4ccce #b3c0c8 #9eb9c2;
+    border-radius: 16px;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -moz-transition: background .1s ease-in;
+    -o-transition: background .1s ease-in;
+    -webkit-transition: background .1s ease-in;
+    transition: background .1s ease-in;
+    box-sizing: content-box;
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.15);
+}
+.submit_button:hover {
+    cursor: pointer;
+    background: #9dcde1;
+}
+.submit_button:active {
+  background: #77bad4;
+  border-color: #9eb9c2 #b3c0c8 #b4ccce;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
 }

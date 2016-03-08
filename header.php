@@ -3,10 +3,10 @@
     <?php
     if (login_check($mysqli) == true) {
         echo '<p>Welcome ' . htmlentities($_SESSION['username']) . '</p>';
-        echo '<a href="process_logout.php"><input type="button" value="Logout" onclick=""/></a>';
+        echo '<a href="process_logout.php"><input type="button" value="Logout" class="submit_button"/></a>';
     } else {
-        echo '<a href="login.php"><input type="button" value="Login" onclick=""/></a>';
-        echo '<a href="register.php"><input type="button" value="Register" onclick=""/></a>';
+        echo '<a href="login.php"><input type="button" value="Login" class="submit_button"/></a>';
+        echo '<a href="register.php"><input type="button" value="Register" class="submit_button"/></a>';
     }
     ?>
 </div>
@@ -31,14 +31,15 @@
                 <li><a href="#">Public Health</a></li>
                 <li><a href="#">Respiratory Medicine</a></li>
                 <li><a href="#">Urology</a></li>
+                <li><a href="#">Other</a></li>
             </ul>
         </li>
-        <li><a href="#">Post</a></li>
+        <li><a href="create_post.php">Post</a></li>
     </ul>
-    <div class="Search_bar">
-        <form>
+    <div class="search_bar">
+        <form method="get" onsubmit="">
             <input type="text" name="search" placeholder="Search...">
-            <a href="#"><button type="button">Search</button></a>
+            <a href="#"><button type="button" onclick="">Search</button></a>
         </form>
     </div>
 </div>

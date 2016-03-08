@@ -82,6 +82,7 @@ function attempt_login($username, $password, $mysqli) {
     }
 }
 
+/*This function prevents brute-force attacks*/
 function checkbrute($user_id, $mysqli) {
     // Get timestamp of current time
     $now = time();
