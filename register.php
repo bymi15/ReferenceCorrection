@@ -1,5 +1,5 @@
 <?php
-include_once '/include/register_inc.php';
+include_once '/include/process_register.php';
 include_once '/include/functions.php';
 ?>
 

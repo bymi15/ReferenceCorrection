@@ -3,6 +3,10 @@ body{
     background: #0ca3d2;
     color: #404040;
 }
+.error{
+    text-align: center;
+    color: #b30000;
+}
 .container {
     width: 87%;
     margin-left: auto;

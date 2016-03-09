@@ -10,8 +10,8 @@ my_session_start();
 <html>
 <head>
     <title>Reference Correction: About</title>
-
     <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="/js/form.js"></script>
 </head>
 <body>
     <div class="container">
@@ -21,27 +21,32 @@ my_session_start();
          <?php
             if (login_check($mysqli) == true) { echo'
              <div class="create_post_form">
-                <form method="post" action="process_login.php" onsubmit="return genHash(this)" id="post_form">
+                <form method="post" action="process_create_post.php">
                     <h1>Create a Post</h1>
+                    <div id="error_message">
+                            <?php
+                                if (!empty($error_msg)) {
+                                    echo $error_msg;
+                                }
+                            ?>
+                    </div>
                     <p class="label">Article Title</p>
-                    <p><input type="text" name="post_title" id="post_title" value="" maxlength="180" placeholder="name of article"></p><br>
+                    <p><input type="text" name="post_title" id="post_title" value="" maxlength="180" placeholder="name of article" autofocus="true"></p><br>
                     <p class="label">Author(s)</p>
                     <p><input type="text" name="post_author" id="post_author" value="" maxlength="180" placeholder="name of author(s)"></p><br>
                     <p class="label">Category</p>
                     <p><select name="post_category" id="post_category">
-                        <option value="volvo">Endocrinology</option>
-                        <option value="saab">Gastroenterology</option>
-                        <option value="fiat">Haematology</option>
-                        <option value="audi">Neurology</option>
+                        <option value="Endocrinology">Endocrinology</option>
+                        <option value="Gastroenterology">Gastroenterology</option>
+                        <option value="Haematology">Haematology</option>
+                        <option value="Neurology">Neurology</option>
                       </select></p><br>
                     <p class="label">Article URL</p>
                     <p><input type="text" name="post_url" id="post_url" value="" maxlength="180" placeholder="link to article"></p><br>
-                    <p class="label">Tags</p>
-                    <p><input type="text" name="post_tags" id="post_tags" value="" maxlength="180" placeholder="e.g. cardiology, neurology, genetics"></p><br>
                     <p class="label">References</p>
-                    <p><textarea form="post_form" name="post_references" id="post_references" style="resize: none; height:100px; max-height:100px; overflow-y:scroll;"></textarea></p><br>
+                    <p><textarea name="post_references" id="post_references" style="resize: none; height:200px; max-height:200px; overflow-y:scroll;"></textarea></p><br>
                     <p>
-                    <input type="submit" value="Post" class="submit_button" style=""/>
+                    <input type="submit" value="Post" class="submit_button" style="" onclick="return validatePost(this.form, this.form.post_title, this.form.post_author, this.form.post_url, this.form.post_references);"/>
                     <input type="submit" value="Cancel" class="submit_button" style=""/>
                     </p>
                 </form>

@@ -25,34 +25,85 @@ function validateLogin(form, username, password){
 
 function validateRegistration(form, username, email, password, conf){
     clearErrors();
+    var hasNoErrors = true;
+
     if(username.value == '' || password.value == '' || email.value == '' || conf.value == ''){
         displayError('Please fill in all the details.');
+        username.focus();
         return false;
     }
 
     //check username
     regex = /^\w+$/;
-    if(!regex.test(form.username.value)){
-        displayError("The username must contain only letters, numbers and underscores. Please try again.");
-        form.username.focus();
-        return false;
+    if(!regex.test(username.value)){
+        displayError("The username must contain only letters, numbers and underscores.");
+        username.focus();
+        hasNoErrors = false;
+    }
+    if (username.value.length < 4 || username.value.length > 16) {
+        displayError('The username must be between 4 and 16 characters long.');
+        username.focus();
+        hasNoErrors = false;
+    }
+
+    //check email
+    regex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,8})$/;
+    if(!regex.test(email.value)){
+        displayError("Please enter a valid email address.");
+        email.focus();
+        hasNoErrors = false;
     }
 
     //check password
-    if (password.value.length < 6) {
-        displayError('The password must be at least 6 characters long.  Please try again');
-        form.password.focus();
-        return false;
+    if (password.value.length < 6 || password.value.length > 16) {
+        displayError('The password must be between 6 and 16 characters long.');
+        password.focus();
+        hasNoErrors = false;
     }
 
     // Check password and confirmation are the same
     if (password.value != conf.value) {
-        displayError('Your password and confirmation do not match. Please try again');
-        form.password.focus();
-        return false;
+        displayError('Your password and confirmation do not match.');
+        password.focus();
+        hasNoErrors = false;
     }
 
-    return true;
+    return hasNoErrors;
+}
+
+function validatePost(form, title, author, url, references){
+    clearErrors();
+    var hasNoErrors = true;
+    //presence check
+    if(title.value == '' || url.value == '' || references.value == '' || author.value == ''){
+        displayError('Please fill in all the fields.');
+        title.focus();
+        return false;
+    }
+    //check title
+    if(title.value.length > 60){
+        displayError('The article title may not exceed 60 characters.');
+        title.focus();
+        hasNoErrors = false;
+    }
+
+    //check author
+    regex = /^[a-zA-Z ,]+$/;
+    if (!regex.test(author.value)) {
+        displayError('The author field may only contain letters, commas and spaces.');
+        author.focus();
+        hasNoErrors = false;
+    }
+
+    //check url
+    regex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    if (!regex.test(url.value)) {
+        displayError('Please enter a valid URL of the article.');
+        url.focus();
+        hasNoErrors = false;
+    }
+
+    return hasNoErrors;
 }
 
 function genHash(form) {
