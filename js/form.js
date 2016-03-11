@@ -74,6 +74,7 @@ function validateRegistration(form, username, email, password, conf){
 function validatePost(form, title, author, url, references){
     clearErrors();
     var hasNoErrors = true;
+
     //presence check
     if(title.value == '' || url.value == '' || references.value == '' || author.value == ''){
         displayError('Please fill in all the fields.');
@@ -81,22 +82,16 @@ function validatePost(form, title, author, url, references){
         return false;
     }
     //check title
-    if(title.value.length > 60){
-        displayError('The article title may not exceed 60 characters.');
+    if(title.value.length > 200){
+        displayError('The article title may not exceed 200 characters.');
         title.focus();
         hasNoErrors = false;
     }
 
-    //check author
-    regex = /^[a-zA-Z ,]+$/;
-    if (!regex.test(author.value)) {
-        displayError('The author field may only contain letters, commas and spaces.');
-        author.focus();
-        hasNoErrors = false;
-    }
-
     //check url
-    regex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    //by imme_emosol: https://mathiasbynens.be/demo/url-regex
+    var regex = /(https?|ftp):\/\/(-\.)?([^\s/?\.#-]+\.?)+(\/[^\s]*)?/;
+
     if (!regex.test(url.value)) {
         displayError('Please enter a valid URL of the article.');
         url.focus();

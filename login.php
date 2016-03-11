@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="login.css">
+    <title>Reference Correction: Login</title>
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
     <script src="/js/sha512.js"></script>
     <script src="/js/form.js"></script>
 </head>

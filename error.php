@@ -10,7 +10,7 @@ if (! $error) {
     <head>
         <meta charset="UTF-8">
         <title>Reference Correction: Error</title>
-        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="/css/index.css" />
     </head>
     <body>
         <h1>There was a problem</h1>

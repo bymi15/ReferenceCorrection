@@ -136,7 +136,7 @@ body{
 }
 
 .post_section div:hover{
-    background: #303030;
+    background: #A0D5FC; /*#9FC7D4;*/
     cursor: pointer;
 }
 
@@ -154,7 +154,8 @@ body{
     width: 70%;
     text-align: left;
     text-decoration: none;
-    color: #0ca3d2;
+    color: #0090BD; /*#0ca3d2;*/
+    font-weight: bold;
 }
 
 .post a{
@@ -199,7 +200,7 @@ body{
     margin:0 auto;
     margin-top: 20px;
     padding: 20px 20px 20px;
-    width: 80%;
+    width: 60%;
     background: white;
 }
 .create_post_form h1{
@@ -301,4 +302,52 @@ body{
   border-color: #9eb9c2 #b3c0c8 #b4ccce;
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.display_post{
+    position: relative;
+    margin:0 auto;
+    margin-top: 20px;
+    padding: 20px 20px 20px;
+    width: 97%;
+    background: white;
+}
+.display_post h1{
+    padding: 10px;
+    margin:-20px -20px 21px;
+    line-height: 40px;
+    font-size: 25px;
+    font-weight: bold;
+    color:#555;
+    text-align: center;
+    background: #E6E6FA;
+    border-bottom: 1px solid #cfcfcf;
+    border-radius: 3px 3px 0 0;
+ }
+ .display_post h3{
+    text-align: center;
+ }
+ .display_post .label{
+    font-size: 16px;
+    font-weight: bold;
+    color:#555;
+    text-align: left;
+ }
+.display_post p{
+    margin: 20px 0 0;
+    font-size: 14px;
+}
+.display_post textarea{
+  margin: 5px;
+  margin-top: 0px;
+  padding: 0 10px;
+  width: 98%;
+  height:38px;
+  color: #404040;
+  background: white;
+  border:1px solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius: 3px;
+  outline: 5px solid #eff4f7;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 }

@@ -9,8 +9,8 @@ my_session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reference Correction: About</title>
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>Reference Correction: Create Post</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
     <script src="/js/form.js"></script>
 </head>
 <body>
@@ -47,7 +47,7 @@ my_session_start();
                     <p><textarea name="post_references" id="post_references" style="resize: none; height:200px; max-height:200px; overflow-y:scroll;"></textarea></p><br>
                     <p>
                     <input type="submit" value="Post" class="submit_button" style="" onclick="return validatePost(this.form, this.form.post_title, this.form.post_author, this.form.post_url, this.form.post_references);"/>
-                    <input type="submit" value="Cancel" class="submit_button" style=""/>
+                    <button value="Cancel" class="submit_button" style="" onclick="return false;"/>Cancel</button>
                     </p>
                 </form>
             </div>';

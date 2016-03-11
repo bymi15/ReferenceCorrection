@@ -1,13 +1,13 @@
 <?php
-include_once '/include/process_register.php';
+include_once 'process_register.php';
 include_once '/include/functions.php';
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
-    <link rel="stylesheet" type="text/css" href="register.css">
+    <title>Reference Correction: Create an account</title>
+    <link rel="stylesheet" type="text/css" href="/css/register.css">
     <script src="/js/sha512.js"></script>
     <script src="/js/form.js"></script>
 </head>

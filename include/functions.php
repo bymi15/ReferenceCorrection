@@ -26,7 +26,7 @@ function my_session_start() {
 }
 
 function attempt_login($username, $password, $mysqli) {
-    // Using prepared statements means that SQL injection is not possible.
+    // Using prepared statements prevents SQL Injections
     if ($stmt = $mysqli->prepare("SELECT id, username, password FROM users WHERE username = ? LIMIT 1")) {
 
         $stmt->bind_param('s', $username);  // Bind "$username" to parameter.
@@ -82,6 +82,13 @@ function attempt_login($username, $password, $mysqli) {
     }
 }
 
+/*
+TODO: THIS BRUTE FORCE FUNCTION IS DEPRECATED
+MALICIOUS USERS CAN EXPLOIT THIS TO LOCK USERS OUT
+OF THEIR ACCOUNT.
+
+MAKE A NEW BRUTE FORCE CHECKER
+*/
 /*This function prevents brute-force attacks*/
 function checkbrute($user_id, $mysqli) {
     // Get timestamp of current time
@@ -106,6 +113,8 @@ function checkbrute($user_id, $mysqli) {
         } else {
             return false;
         }
+    }else{
+        exit;
     }
 }
 
@@ -204,6 +213,30 @@ function esc_url($url) {
         return '';
     } else {
         return $url;
+    }
+}
+
+function search($query, $mysqli){
+
+    // Using prepared statements prevents SQL Injections
+    if ($stmt = $mysqli->prepare('SELECT id FROM posts WHERE MATCH(article_title, article_author, category) AGAINST(:search_query)')) {
+
+        $stmt->bind_param(':search_query', $query, PDO::PARAM_STR);
+        $stmt->execute();    // Execute the prepared query.
+        $stmt->store_result();
+
+        // get the id from result.
+        $stmt->bind_result($post_id);
+
+        while ($stmt->fetch()){
+            $result .= '[' . $post_id . ']';
+        }
+
+        $stmt->close();
+
+    } else {
+        echo "<h1>Error: database not connected</h1>";
+        return 'error';
     }
 }
 

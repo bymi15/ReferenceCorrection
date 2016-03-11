@@ -37,7 +37,7 @@
         <li><a href="create_post.php">Post</a></li>
     </ul>
     <div class="search_bar">
-        <form method="get" onsubmit="">
+        <form method="get" action="search.php">
             <input type="text" name="search" placeholder="Search...">
             <a href="#"><button type="button" onclick="">Search</button></a>
         </form>

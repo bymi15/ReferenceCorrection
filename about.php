@@ -11,7 +11,7 @@ my_session_start();
 <head>
     <title>Reference Correction: About</title>
 
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
     <div class="container">
