@@ -1,0 +1,220 @@
+body{
+    font: 13px/20px "Lucida Grande", Tahoma, Verdana, sans-serif;
+    background: #0ca3d2;
+    color: #404040;
+}
+
+/* header code copy and pasted form home webite */
+.container {
+    width: 87%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.header{
+    margin-top: 20px;
+    padding: 15px;
+    padding-bottom:50px;
+    background-color: #383838;
+    border-radius:10px;
+}
+.header p{
+    display: inline;
+    font-size: 14px;
+    font-weight: bold;
+    color:#fff;
+}
+.header h1{
+    text-align: left;
+    margin-left: 15px;
+    font-size: 25px;
+}
+.header a{
+    text-decoration: none;
+    color:white;
+    margin-left: 30px;
+}
+.mainhead{
+    width:86%;
+    text-align: center;
+    margin-top: 20px;
+    color:white;
+    float:left;
+}
+
+.navigation ul {
+    list-style-type: none;
+    margin-top: 10px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #A0D5FC;
+    border-radius: 10px;
+}
+
+.navigation ul li {
+    float: left;
+    -moz-transition: background .1s ease-in;
+    -o-transition: background .1s ease-in;
+    -webkit-transition: background .1s ease-in;
+    transition: background .1s ease-in;
+}
+.navigation form{
+    text-align: right;
+}
+.navigation li a {
+    font-weight: bold;
+    display: block;
+    color: #404040;
+    text-align: center;
+    padding: 16px 24px;
+    text-decoration: none;
+}
+
+.navigation ul li:hover {
+    background: #B5B7D8;
+}
+.navigation ul ul{
+    display: none;
+    background: #E6E6FA;
+    border-radius: 0px;
+    padding: 0px;
+    position:absolute;
+    z-index:9999;
+    margin-top:0px;
+}
+.navigation ul ul li{
+    float: none;
+    position: relative;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.navigation ul ul li:hover{
+    background: #CCCEE8;
+}
+.navigation ul ul li a{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: normal;
+}
+/* We only want block display when we hover li elements.
+ > is to target ul within the li tags */
+.navigation ul li:hover > ul{
+    display: block;
+}
+
+.search_bar{
+    text-align: left;
+}
+.search_bar button{
+    position: relative;
+    left: -10px;
+    padding: 6px 15px;
+    border: 0 solid;
+    border-radius: 0 5px 5px 0;
+    background: #cde5ef;
+    color: #527881;
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.15);
+}
+.search_bar input{
+    right: 5px;
+    padding: 6px 15px;
+    border: 0 solid;
+    border-radius: 5px 0 0 5px;
+}
+.post_author_section{
+    background:#DBD3F0;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 10px 10px 0 0;
+    border-bottom: solid 1px;
+}
+/*Here is the styling of the post authoer section*/
+.post_author_section a{
+    text-decoration: none;
+    color: blue;
+}
+.post_author_section .left_header{
+    float:left;
+    margin-top:15px;
+    margin-right: 10px;
+    padding-bottom: 40px;
+    padding-right:15px;
+}
+.post_author_section p{
+    margin-top: 8px;
+}
+.post_author_section .label{
+    font-weight: bold;
+    color: #000000;
+}
+/*Styling of reference list section*/
+.references_section hr{
+    height:5px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.5);
+    margin: 0px;
+}
+.references_section {
+    background:white;
+    padding-top: 10px
+}
+.references_section h3{
+    margin-left: 10px;
+}
+.reference{
+    list-style-type: none;
+    background-color: white;
+    padding-top: 5px;
+    padding-left: 15px;
+    border-bottom: solid 1px; 
+    width: 100%;
+    height: 100px;
+    overflow: auto;
+}
+.references_section ul li:hover{
+    background-color: #A0D5FC;
+}
+/*Styling the buttons for adding/viewing suggestions*/
+.suggestion_buttons button{
+  margin-bottom: 5px;
+  padding: 0 18px;
+  height: 20px;
+  font-size: 10px;
+  font-weight: bold;
+  color:#527881;
+  background: #cde5ef;
+  border: 1px solid;
+  border-color: #b4ccce #b3c0c8 #9eb9c2;
+  border-radius: 16px;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  box-shadow:0 1px 2px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  float: left;
+  margin-right:5px;
+}
+
+.suggestion_buttons button:active{
+  background: #cde5ef;
+  border-color: #9eb9c2 #b3c0c8 #b4ccce;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.voting_buttons img{
+    height: 2%;
+    width: 2%;
+    display:inline;
+}
+.voting_buttons{
+    margin-left:100px;
+}
+/*The dropdown Content*/
+.dropdown-content{
+    position: absolute;
+    height: 0px;
+    width: 100%;
+    background: white;
+    overflow: auto;
+    z-index: 1000;
+    transition: height, 0.3s, linear, 0s;
+}
