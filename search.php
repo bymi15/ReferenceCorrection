@@ -9,8 +9,6 @@ if (isset($_GET['search'])){
 
     $search_query = strip_tags($_POST['search']);
 
-    echo serialize($mysqli);
-
     $result = search($search_query, $mysqli);
 
     echo "<h1> Search Results</h1>";

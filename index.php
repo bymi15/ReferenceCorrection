@@ -29,7 +29,7 @@ my_session_start();
                 <?php
                 include_once '/include/connection.php';
 
-                $sql = "SELECT posts.id, posts.article_title, posts.article_author, posts.date, posts.category, posts.author, users.username FROM posts LEFT JOIN users ON posts.author = users.id LIMIT 10";
+                $sql = "SELECT posts.id, posts.article_title, posts.article_author, posts.date, posts.category, posts.author, users.username FROM posts LEFT JOIN users ON posts.author = users.id ORDER BY date DESC LIMIT 10;";
 
                 $result = mysqli_query($mysqli, $sql);
 

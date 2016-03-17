@@ -39,7 +39,7 @@
     <div class="search_bar">
         <form method="get" action="search.php">
             <input type="text" name="search" placeholder="Search...">
-            <a href="#"><button type="button" onclick="">Search</button></a>
+            <button type="button" onclick="form.submit();">Search</button>
         </form>
     </div>
 </div>

@@ -25,7 +25,31 @@ function my_session_start() {
     session_regenerate_id(true);    // regenerated the session, delete the old one.
 }
 
+function getUserIP()
+{
+    $client  = $_SERVER['HTTP_CLIENT_IP'];
+    $forward = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    $remote  = $_SERVER['REMOTE_ADDR'];
+
+    if(filter_var($client, FILTER_VALIDATE_IP))
+    {
+        $ip = $client;
+    }
+    elseif(filter_var($forward, FILTER_VALIDATE_IP))
+    {
+        $ip = $forward;
+    }
+    else
+    {
+        $ip = $remote;
+    }
+
+    return $ip;
+}
+
 function attempt_login($username, $password, $mysqli) {
+    $ip_address = getUserIP();
+
     // Using prepared statements prevents SQL Injections
     if ($stmt = $mysqli->prepare("SELECT id, username, password FROM users WHERE username = ? LIMIT 1")) {
 
@@ -41,7 +65,7 @@ function attempt_login($username, $password, $mysqli) {
             // If the user exists we check if the account is locked
             // from too many login attempts
 
-            if (checkbrute($user_id, $mysqli) == true) {
+            if (check_brute($user_id, $ip_address, $mysqli) == true) {
                 // Account is locked
                 // Send an email to user saying their account is locked
                 return false;
@@ -69,8 +93,8 @@ function attempt_login($username, $password, $mysqli) {
                     // Password is not correct
                     // We record this attempt in the database
                     $now = time();
-                    $mysqli->query("INSERT INTO login_attempts(user_id, time)
-                                    VALUES ('$user_id', '$now')");
+                    $mysqli->query("INSERT INTO login_attempts(user_id, ip_address, time)
+                                    VALUES ('$user_id', '$ip_address', '$now')");
                     return false;
                 }
             }
@@ -82,15 +106,9 @@ function attempt_login($username, $password, $mysqli) {
     }
 }
 
-/*
-TODO: THIS BRUTE FORCE FUNCTION IS DEPRECATED
-MALICIOUS USERS CAN EXPLOIT THIS TO LOCK USERS OUT
-OF THEIR ACCOUNT.
 
-MAKE A NEW BRUTE FORCE CHECKER
-*/
 /*This function prevents brute-force attacks*/
-function checkbrute($user_id, $mysqli) {
+function check_brute($user_id, $ip_address, $mysqli) {
     // Get timestamp of current time
     $now = time();
 
@@ -100,8 +118,10 @@ function checkbrute($user_id, $mysqli) {
     if ($stmt = $mysqli->prepare("SELECT time
                              FROM login_attempts
                              WHERE user_id = ?
+                             AND ip_address = ?
                             AND time > '$valid_attempts'")) {
         $stmt->bind_param('i', $user_id);
+        $stmt->bind_param('s', $ip_address);
 
         // Execute the prepared query.
         $stmt->execute();
@@ -219,9 +239,9 @@ function esc_url($url) {
 function search($query, $mysqli){
 
     // Using prepared statements prevents SQL Injections
-    if ($stmt = $mysqli->prepare('SELECT id FROM posts WHERE MATCH(article_title, article_author, category) AGAINST(:search_query)')) {
+    if ($stmt = $mysqli->prepare("SELECT id FROM posts WHERE MATCH (article_title) AGAINST(:search_query IN BOOLEAN MODE) LIMIT 10")) {
 
-        $stmt->bind_param(':search_query', $query, PDO::PARAM_STR);
+        $stmt->bind_param(':search_query', $query);
         $stmt->execute();    // Execute the prepared query.
         $stmt->store_result();
 

@@ -12,15 +12,21 @@ my_session_start();
     <title>Reference Correction: About</title>
 
     <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <div class="container">
         <?php
         include 'header.php';
         ?>
-        <div class="AboutApp">
-            <h3>Welcome to Reference Correction!</h3>
-            <p>Reference correction description...</p>
+        <div class="header_image">
+            <img src="images/research.jpg" alt="research">
+            <h2>What is Reference Correction?</h2>
+            <h3>About this App</h3>
+        </div>
+        <div class="about_page">
+            <h3>A LITTLE BIT ABOUT REFERENCE CORRECTION</h3><hr>
+            <p>Insert description here....</p>
         </div>
     </div>
 </body>

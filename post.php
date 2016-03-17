@@ -23,6 +23,7 @@ my_session_start();
 
             //update the view count
             $id = $_GET['id'];
+
             if (!isset($_SESSION['viewed' . $id])) {
                 $query = mysqli_query($mysqli, "UPDATE posts SET views = views + 1 WHERE id = '{$id}'");
 
@@ -36,7 +37,7 @@ my_session_start();
             //retrieve the post from the database
             $stmt = $mysqli->prepare("SELECT posts.article_title, posts.article_author, posts.date, posts.category, posts.author, posts.article_references, posts.article_url, posts.views, users.username FROM posts LEFT JOIN users ON posts.author = users.id WHERE posts.id = ? LIMIT 1");
 
-            $stmt->bind_param('i', $_GET['id']);
+            $stmt->bind_param('i', $id);
             $stmt->execute();    // Execute the prepared query.
             $stmt->store_result(); //Store its results
 
@@ -50,27 +51,84 @@ my_session_start();
             }
             else
             {
-                $sql = "SELECT reference_text FROM reference WHERE id=" . $reference_id . " LIMIT 1";
+                $sql = "SELECT reference_text FROM reference WHERE id=" . $reference_id;
                 $result = mysqli_query($mysqli, $sql);
+
                 $references = mysqli_fetch_assoc($result)['reference_text'];
 
+                $reference_list = explode("\n", $references);
+
+                //pagination
+                $page = 1;
+                if(isset($_GET['page'])) {
+                    $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
+                    if($page === false) {
+                        $page = 1;
+                    }
+                }
+                $items_per_page = 5;
+                $offset = ($page - 1) * $items_per_page;
+
                 echo'
-                <div class="display_post">
-                    <h1>' . $article_title . '</h1>
-                    <h3> By ' . $article_author . '</h3><br>
-                    <p class="label" style="text-align:center;">Views</p>
-                    <p style="text-align:center;">' . $views . '</p>
-                    <p class="label">Article Title</p>
-                    <p>' . $article_title . '<p><br>
-                    <p class="label">Author(s)</p>
-                    <p>' . $article_author . '<p><br>
-                    <p class="label">Category</p>
-                    <p>' . $category . '<p><br>
-                    <p class="label">Article URL</p>
-                    <p><a href="' . $article_url . '" target="_blank">' . $article_url . '</a><p><br>
-                    <p class="label">References</p>
-                    <p><textarea name="post_references" id="post_references" style="resize: none; height:200px; max-height:200px; overflow-y:scroll;">' . $references . '</textarea></p><br>
-                </div>';
+                <div class="navigation">
+                    <div class="post_author_section">
+                        <div class="left_header">
+                            <h3>Username: <a href="#">' . $author_username . '</a></h3>
+                            <p><span class="label">Views:</span> ' . $views . '</p>
+                            <p><span class="label">Category:</span> <a href="#">' . $category . '</a></p>
+                        </div>
+                        <p style="font-size:16px;"><span class="label">Article Title:</span> ' . $article_title . '</p>
+                        <p><span class="label">Article url:</span> <a href="' . $article_url .'" target="_blank">' . $article_url . '</a></p>
+                        <p><span class="label">Author(s): </span>' . $article_author . '</p>
+                        <p><span class="label">Date posted: </span>' . $date . '</p>
+                    </div>
+
+                    <div class="references_section">
+                        <h3>References</h3><hr>';
+
+                $row_count = count($reference_list);
+                $page_count = 0;
+                if ($row_count !== 0){
+                    $page_count = (int)ceil($row_count / $items_per_page);
+                    if($page > $page_count) {
+                        $page = 1;
+                    }
+                }
+
+                echo '<br><div class="page_number_section">';
+                for ($i = 1; $i <= $page_count; $i++) {
+                    if ($i === $page) { // this is current page
+                        echo '<span class="page_number" id="current_page">' . $i . '</span>';
+                    } else { // show link to other page
+                        echo '<a href="/post.php?id=' . $id . '&page=' . $i . '"><span class="page_number">' . $i . '</span></a>';
+                    }
+                }
+                echo '</div><br>';
+
+                echo '<ul>';
+
+                for($i = $offset; $i < $items_per_page + $offset; $i++){
+                    if(!empty($reference_list[$i])){
+                    echo'
+                        <li class="reference"><p>' . $reference_list[$i] . '</p>
+                            <div class="suggestion_buttons">
+                                <button onlick="">Add Suggestions</button>
+                                <button type="button" onlick="*">View Suggestions</button>
+                                <div class="voting_buttons">
+                                    <img style="margin-right:20px;" src="/img/like.png" alt="thumbsUp">
+                                    <img src="/img/dislike.png" alt="thumbsdown">
+                                </div>
+                            </div>
+                        </li>
+                    ';
+                    }
+                }
+
+                echo'</ul>
+
+                    </div>
+                </div>
+                    ';
             }
         }
 

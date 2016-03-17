@@ -31,9 +31,9 @@ my_session_start();
                             ?>
                     </div>
                     <p class="label">Article Title</p>
-                    <p><input type="text" name="post_title" id="post_title" value="" maxlength="180" placeholder="name of article" autofocus="true"></p><br>
+                    <p><input type="text" name="post_title" id="post_title" value="" maxlength="500" placeholder="name of article" autofocus="true"></p><br>
                     <p class="label">Author(s)</p>
-                    <p><input type="text" name="post_author" id="post_author" value="" maxlength="180" placeholder="name of author(s)"></p><br>
+                    <p><input type="text" name="post_author" id="post_author" value="" maxlength="500" placeholder="name of author(s)"></p><br>
                     <p class="label">Category</p>
                     <p><select name="post_category" id="post_category">
                         <option value="Endocrinology">Endocrinology</option>
@@ -42,8 +42,9 @@ my_session_start();
                         <option value="Neurology">Neurology</option>
                       </select></p><br>
                     <p class="label">Article URL</p>
-                    <p><input type="text" name="post_url" id="post_url" value="" maxlength="180" placeholder="link to article"></p><br>
+                    <p><input type="text" name="post_url" id="post_url" value="" maxlength="200" placeholder="link to article"></p><br>
                     <p class="label">References</p>
+                    <p><input type="file" name="upload_file" id="upload_file"></p>
                     <p><textarea name="post_references" id="post_references" style="resize: none; height:200px; max-height:200px; overflow-y:scroll;"></textarea></p><br>
                     <p>
                     <input type="submit" value="Post" class="submit_button" style="" onclick="return validatePost(this.form, this.form.post_title, this.form.post_author, this.form.post_url, this.form.post_references);"/>
@@ -55,5 +56,7 @@ my_session_start();
                 echo '<h1 style="text-align: center;">Only registered users may create posts.</h1><br><h2 style="text-align: center;">If you wish to create a post, please <a href="login.php">login</a> or <a href="register.php">register</a>.</h2><br>';
             }
         ?>
+
+<script src="/js/upload_file.js"></script>
 </body>
 </html>

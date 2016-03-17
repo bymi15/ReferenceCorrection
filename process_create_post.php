@@ -1,6 +1,7 @@
 <?php
 include_once("/include/connection.php");
 include_once("/include/functions.php");
+require_once("/lib/RISReader.php");
 
 error_reporting(E_ALL & ~E_NOTICE);
 my_session_start();
@@ -9,9 +10,16 @@ if (isset($_POST['post_title'], $_POST['post_url'], $_POST['post_references'], $
 
     $title = strip_tags($_POST['post_title']);
     $url = strip_tags($_POST['post_url']);
-    $references = strip_tags($_POST['post_references']);
     $category = strip_tags($_POST['post_category']);
     $author = strip_tags($_POST['post_author']);
+
+    /*PARSE REFERENCES*/
+    $unparsed_references = $_POST['post_references'];
+
+    $ris = new \LibRIS\RISReader();
+    $ris->parseString($unparsed_references);
+
+    $references = implode("\n", $ris->getRecords());
 
     try{
         //begin a transaction
