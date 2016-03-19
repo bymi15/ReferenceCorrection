@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reference Correction:Post</title>
+	<link rel="stylesheet" type="text/css" href="AddSuggestion.css">
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1 class="mainhead">Reference<span style="color:#0ca3d2">Correction</span></h1>
+			<p><a href="Login.html">Sign in</a></p>
+			<p><a href="Register.html">Sign up</a></p>
+		</div>
+		<div class="navigation">
+			<ul>
+         		<li><a href="index.php">Home</a></li>
+        		<li><a href="about.php">About</a></li>
+        		<li><a href="#">Categories</a>
+            		<ul>
+                		<li><a href="#">Cardiology &amp; Vascular Medicine</a></li>
+                		<li><a href="#">Endocrinology</a></li>
+                		<li><a href="#">Gastroenterology</a></li>
+		                <li><a href="#">Genetics &amp; Genomics</a></li>
+		                <li><a href="#">Haematology</a></li>
+		                <li><a href="#">Infectious Diseases</a></li>
+		                <li><a href="#">Neurology</a></li>
+		                <li><a href="#">Obstetrics &amp; Gynaecology</a></li>
+		                <li><a href="#">Oncology</a></li>
+		                <li><a href="#">Paediatrics</a></li>
+		                <li><a href="#">Psychiatry</a></li>
+		                <li><a href="#">Public Health</a></li>
+		                <li><a href="#">Respiratory Medicine</a></li>
+		                <li><a href="#">Urology</a></li>
+		                <li><a href="#">Other</a></li>
+            		</ul>
+        		</li>
+        		<li><a href="create_post.php">Post</a></li>
+    		</ul>
+    		<div class="search_bar">
+				<form method="get" onsubmit="">
+            		<input type="text" name="search" placeholder="Search...">
+            		<a href="#"><button type="button" onclick="">Search</button></a>
+        		</form>
+			</div>
+		</div>
+			<!-- this is the top section which contains user details and info about the article -->
+			<div class="post_author_section">
+				<div class="left_header">
+					<h3>Username: <a href="#">zcabmyl</a></h3>
+					<p><span class="label">Views:</span> 301</p>
+					<p><span class="label">Category:</span> <a href="#">Other</a></p>
+				</div>
+				<p style="font-size:16px;"><span class="label">Article Title:</span> Metformin for Liver Cancer Prevention in Patients with Type 2 Diabetes: A Systematic Review and Meta-Analysis</p>
+				<p><span class="label">Article url:</span><a href="http://www.medicalprotection.org/uk/resources/case-reports/case-reports/uk-a-case-of-renal-failure">http://www.medicalprotection.org/uk/resources/case-reports/case-reports/uk-a-case-of-renal-failure......................................</a></p>
+				<p><span class="label">Author(s):</span> </p>
+				<p><span class="label">Date posted:</span>24/7/2015</p>
+			</div>
+			<div class="reference_header">
+				<h3>The current reference is: <span style="color:#1B9AF5">Dellicour S, Tatem AJ, Guerra CA, Snow RW, ter Kuile FO. Quantifying the number of pregnancies at risk of malaria in 2007: a demographic study. PLoS Med 2010;7:e1000221-e1000221</span></h3>
+			</div>
+			<!-- This is the form at which the users submit thier suggestions. -->
+			<div class="suggestion_form">
+				<form method="post" action="">
+					<p>Error</p>
+					<p><input type="text" name="error" placeholder="Enter the error for this reference."></p>
+					<p>Suggestion</p>
+					<p><input type="text" name="suggestion" placeholder="Enter the correction you would like to suggest."></p>
+					<p>Additional Comments</p>
+					<p><textarea name='comment' id='comment' placeholder="Additional comments for this reference?"></textarea></p>
+					<div class="submit_buttons">
+						<button type="button">Submit</button>
+						<button type="button">Cancel</button>
+					</div>
+				</form>
+			</div>
+	</div>
+</body>
+</html>
