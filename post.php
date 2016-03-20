@@ -10,7 +10,7 @@ my_session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reference Correction</title>
+    <title>Reference Checker</title>
 
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
@@ -21,9 +21,9 @@ my_session_start();
 
         if (isset($_GET['id'])) {
 
-            //update the view count
             $id = $_GET['id'];
 
+            //update the view count
             if (!isset($_SESSION['viewed' . $id])) {
                 $query = mysqli_query($mysqli, "UPDATE posts SET views = views + 1 WHERE id = '{$id}'");
 
@@ -107,14 +107,21 @@ my_session_start();
 
                 echo '<ul>';
 
+                /*Retrieve votes from database*//*
+                $sql = "SELECT reference_text FROM reference WHERE id=" . $reference_id;
+                $result = mysqli_query($mysqli, $sql);
+
+                $references = mysqli_fetch_assoc($result)*/
+
+                /*Display references*/
                 for($i = $offset; $i < $items_per_page + $offset; $i++){
                     if(!empty($reference_list[$i])){
                     echo'
                         <li class="reference"><p>' . $reference_list[$i] . '</p>
                             <div class="suggestion_buttons">
-                                <button onlick="">Add Suggestions</button>
-                                <button type="button" onlick="*">View Suggestions</button>
-                                <div class="voting_buttons">
+                                <a href="add_suggestion.php?post_id=' . $id . '&ref_index=' . $i . '"><button>Add Suggestion</button></a>
+                                <a href="suggestion.php?post_id=' . $id . '&ref_index=' . $i . '"><button>View Suggestions</button>
+                                <div class="voting_buttons"></a>
                                     <img style="margin-right:20px;" src="/img/like.png" alt="thumbsUp">
                                     <img src="/img/dislike.png" alt="thumbsdown">
                                 </div>

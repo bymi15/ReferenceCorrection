@@ -101,6 +101,17 @@ function validatePost(form, title, author, url, references){
     return hasNoErrors;
 }
 
+function validateSuggestion(form, correction){
+    clearErrors();
+    //presence check
+    if(correction.value == ''){
+        displayError('Please do not leave the correction field blank.');
+        correction.focus();
+        return false;
+    }
+    return true;
+}
+
 function genHash(form) {
     if(validateLogin(form, form.username, form.password)){
         // Create a new element input, this will be our hashed password field.

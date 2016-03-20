@@ -2,6 +2,7 @@
 include_once("/include/connection.php");
 include_once("/include/functions.php");
 require_once("/lib/RISReader.php");
+require_once("/lib/ENWReader.php");
 
 error_reporting(E_ALL & ~E_NOTICE);
 my_session_start();
@@ -13,13 +14,32 @@ if (isset($_POST['post_title'], $_POST['post_url'], $_POST['post_references'], $
     $category = strip_tags($_POST['post_category']);
     $author = strip_tags($_POST['post_author']);
 
+    $file_type = "plain";
+    if(isset($_POST['file_type'])){
+        $file_type = strip_tags($_POST['file_type']);
+    }
+
     /*PARSE REFERENCES*/
     $unparsed_references = $_POST['post_references'];
+    $references = $unparsed_references;
 
-    $ris = new \LibRIS\RISReader();
-    $ris->parseString($unparsed_references);
+    if($file_type == "ris"){
 
-    $references = implode("\n", $ris->getRecords());
+        $ris = new RISReader();
+        $ris->parseString($unparsed_references);
+        $references = implode("\n", $ris->getRecords());
+
+    }else if($file_type == "enw"){
+
+        $enw = new ENWReader();
+        $enw->parseString($unparsed_references);
+        $references = implode("\n", $enw->getRecords());
+
+    }else if($file_type == "bib"){
+
+    }
+
+
 
     try{
         //begin a transaction

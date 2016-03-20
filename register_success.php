@@ -9,7 +9,7 @@
                 <link rel="stylesheet" href="/css/register.css" />
             </head>
             <body>
-                <div class="header"><h1><a href="index.php">Reference<span style="color:#0ca3d2">Correction</span></a></h1></div>
+                <div class="header"><h1><a href="index.php">Reference<span style="color:#0ca3d2">Checker</span></a></h1></div>
                  <div class="container">
                     <div class="register">
                         <h1>Registration successful!</h1>

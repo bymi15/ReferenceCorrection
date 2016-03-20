@@ -9,7 +9,7 @@ my_session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reference Correction: Create Post</title>
+    <title>Reference Checker: Create Post</title>
     <link rel="stylesheet" type="text/css" href="/css/index.css">
     <script src="/js/form.js"></script>
 </head>
@@ -21,7 +21,7 @@ my_session_start();
          <?php
             if (login_check($mysqli) == true) { echo'
              <div class="create_post_form">
-                <form method="post" action="process_create_post.php">
+                <form method="post" action="process_create_post.php" id="create_post_form" onsubmit="return validatePost(this, this.post_title, this.post_author, this.post_url, this.post_references);">
                     <h1>Create a Post</h1>
                     <div id="error_message">
                             <?php
@@ -38,17 +38,28 @@ my_session_start();
                     <p><select name="post_category" id="post_category">
                         <option value="Endocrinology">Endocrinology</option>
                         <option value="Gastroenterology">Gastroenterology</option>
+                        <option value="Genetics & Genomics">Genetics & Genomics</option>
                         <option value="Haematology">Haematology</option>
+                        <option value="Infectious Diseases">Infectious Diseases</option>
                         <option value="Neurology">Neurology</option>
+                        <option value="Obstetrics & Gynaecology">Obstetrics & Gynaecology</option>
+                        <option value="Oncology">Oncology</option>
+                        <option value="Paediatrics">Paediatrics</option>
+                        <option value="Psychiatry">Psychiatry</option>
+                        <option value="Public Health">Public Health</option>
+                        <option value="Respiratory Medicine">Respiratory Medicine</option>
+                        <option value="Urology">Urology</option>
+                        <option value="Other">Other</option>
                       </select></p><br>
                     <p class="label">Article URL</p>
                     <p><input type="text" name="post_url" id="post_url" value="" maxlength="200" placeholder="link to article"></p><br>
                     <p class="label">References</p>
+                    <p>References can be uploaded as a <b>.ris</b> or <b>.enw</b> file.</p>
                     <p><input type="file" name="upload_file" id="upload_file"></p>
                     <p><textarea name="post_references" id="post_references" style="resize: none; height:200px; max-height:200px; overflow-y:scroll;"></textarea></p><br>
                     <p>
-                    <input type="submit" value="Post" class="submit_button" style="" onclick="return validatePost(this.form, this.form.post_title, this.form.post_author, this.form.post_url, this.form.post_references);"/>
-                    <button value="Cancel" class="submit_button" style="" onclick="return false;"/>Cancel</button>
+                    <input type="submit" value="Post" class="submit_button" style=""/>
+                    <button value="Cancel" class="submit_button" style="" onclick="location.href = \'index.php\';"/>Cancel</button>
                     </p>
                 </form>
             </div>';

@@ -9,7 +9,7 @@ my_session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reference Correction: About</title>
+    <title>Reference Checker: About</title>
 
     <link rel="stylesheet" type="text/css" href="/css/index.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
@@ -20,12 +20,12 @@ my_session_start();
         include 'header.php';
         ?>
         <div class="header_image">
-            <img src="images/research.jpg" alt="research">
-            <h2>What is Reference Correction?</h2>
+            <img src="img/research.jpg" alt="research">
+            <h2>What is Reference Checker?</h2>
             <h3>About this App</h3>
         </div>
         <div class="about_page">
-            <h3>A LITTLE BIT ABOUT REFERENCE CORRECTION</h3><hr>
+            <h3>A LITTLE BIT ABOUT REFERENCE CHECKER</h3><hr>
             <p>Insert description here....</p>
         </div>
     </div>

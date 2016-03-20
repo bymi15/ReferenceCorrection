@@ -9,7 +9,7 @@ my_session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reference Correction: Home</title>
+    <title>Reference Checker: Home</title>
 
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
@@ -19,8 +19,8 @@ my_session_start();
         include 'header.php';
         ?>
         <div class="about_section">
-            <h3>Welcome to Reference Correction!</h3>
-            <p>Reference correction description...</p>
+            <h3>Welcome to Reference Checker!</h3>
+            <p>Reference Checker description...</p>
         </div>
         <div class="post_section">
             <h4>Recent posts</h4><hr>

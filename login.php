@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reference Correction: Login</title>
+    <title>Reference Checker: Login</title>
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <script src="/js/sha512.js"></script>
     <script src="/js/form.js"></script>
 </head>
 <body>
-    <div class="header"><h1><a href="index.php">Reference<span style="color:#0ca3d2">Correction</span></a></h1></div>
+    <div class="header"><h1><a href="index.php">Reference<span style="color:#0ca3d2">Checker</span></a></h1></div>
     <div class="container">
         <div class="login">
             <form method="post" action="process_login.php" onsubmit="return genHash(this)">

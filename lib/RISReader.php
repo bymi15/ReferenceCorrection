@@ -8,7 +8,7 @@
  *
  * @see http://www.refman.com/support/risformat_intro.asp
  */
-namespace LibRIS;
+
 /**
  * The main class for parsing RIS files.
  *
@@ -77,7 +77,7 @@ class RISReader {
    */
   public function parseFile($filename, $context = NULL) {
     if (!is_file($filename)) {
-      throw new ParseException(sprintf('File %s not found.', htmlentities($filename)));
+      throw new Exception(sprintf('File %s not found.', htmlentities($filename)));
     }
     $flags = FILE_SKIP_EMPTY_LINES | FILE_TEXT;
     $contents = file($filename, $flags, $context);

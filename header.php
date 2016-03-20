@@ -1,5 +1,5 @@
 <div class="header">
-    <h1 class="mainhead">Reference<span style="color:#0ca3d2">Correction</span></h1>
+    <h1 class="mainhead">Reference<span style="color:#0ca3d2">Checker</span></h1>
     <?php
     if (login_check($mysqli) == true) {
         echo '<p>Welcome ' . htmlentities($_SESSION['username']) . '</p>';

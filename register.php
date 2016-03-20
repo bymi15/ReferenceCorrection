@@ -6,7 +6,7 @@ include_once '/include/functions.php';
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reference Correction: Create an account</title>
+    <title>Reference Checker: Create an account</title>
     <link rel="stylesheet" type="text/css" href="/css/register.css">
     <script src="/js/sha512.js"></script>
     <script src="/js/form.js"></script>
