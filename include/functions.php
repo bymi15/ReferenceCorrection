@@ -237,11 +237,26 @@ function esc_url($url) {
 }
 
 function search($query, $mysqli){
-
     // Using prepared statements prevents SQL Injections
-    if ($stmt = $mysqli->prepare("SELECT id FROM posts WHERE MATCH (article_title) AGAINST(:search_query IN BOOLEAN MODE) LIMIT 10")) {
 
-        $stmt->bind_param(':search_query', $query);
+    /* USING FULL-TEXT SEARCH IN BOOLEAN MODE
+    if ($stmt = $mysqli->prepare("SELECT id FROM posts WHERE MATCH (article_title) AGAINST ('" . $query . "' IN BOOLEAN MODE) OR MATCH (article_url) AGAINST ('" . $query . "' IN BOOLEAN MODE) OR MATCH (category) AGAINST ('" . $query . "' IN BOOLEAN MODE)")) {
+    */
+
+    //Split the search query up into individual words
+    $terms = explode(' ', $query);
+    $arr = array();
+    foreach ($terms as $term) {
+        $term = trim($term);
+        if (!empty($term)) {
+            $arr[] = "article_title LIKE '%" . $term . "%'";
+            $arr[] = "category LIKE '%" . $term . "%'";
+            $arr[] = "article_url LIKE '%" . $term . "%'";
+            $arr[] = "article_author LIKE '%" . $term . "%'";
+        }
+    }
+
+    if ($stmt = $mysqli->prepare("SELECT id from posts WHERE " . implode(" OR ", $arr))){
         $stmt->execute();    // Execute the prepared query.
         $stmt->store_result();
 
@@ -249,15 +264,22 @@ function search($query, $mysqli){
         $stmt->bind_result($post_id);
 
         while ($stmt->fetch()){
-            $result .= '[' . $post_id . ']';
+            //add it to the array
+            $result[] = $post_id;
         }
 
         $stmt->close();
+        return $result;
 
     } else {
         echo "<h1>Error: database not connected</h1>";
         return 'error';
     }
+}
+
+function getCategories(){
+    $categories = array("Cardiology & Vascular Medicine", "Endocrinology", "Gastroenterology", "Genetics & Genomics", "Haematology", "Infectious Diseases", "Neurology", "Obstetrics & Gynaecology", "Oncology", "Paediatrics", "Psychiatry", "Public Health", "Respiratory Medicine", "Urology", "Other");
+    return $categories;
 }
 
 ?>

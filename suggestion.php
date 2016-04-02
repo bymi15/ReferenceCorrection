@@ -62,7 +62,7 @@ my_session_start();
                         <h3>The current reference is: <span style="color:#1B9AF5">' . $reference_list[$ref_index] . '</span></h3>
                     </div>';
 
-                    $sql = "SELECT suggestion.comment, suggestion.correction, suggestion.vote, suggestion.author, users.username FROM suggestion LEFT JOIN users ON suggestion.author = users.id WHERE post_id=" . $post_id . " AND reference_index=" . $ref_index;
+                    $sql = "SELECT suggestion.id, suggestion.comment, suggestion.correction, suggestion.vote, suggestion.author, users.username FROM suggestion LEFT JOIN users ON suggestion.author = users.id WHERE post_id=" . $post_id . " AND reference_index=" . $ref_index;
 
                     $result = mysqli_query($mysqli, $sql);
                     if(mysqli_num_rows($result) > 0){
@@ -71,9 +71,9 @@ my_session_start();
                                 <div class="suggestion">
                                     <div class="left_header">
                                         <h3><span class="label">User:</span> ' . $row_data["username"] . '</h3>
-                                        <img src="img/like.png">
+                                        <a href=\'process_vote_suggestion.php?vote=1&id=' . $row_data["id"] . '&post_id=' . $post_id . '&ref_index=' . $ref_index . '\'><img src="img/like.png"></a>
                                         <span class="vote_label">Vote: ' . $row_data["vote"] . '</span>
-                                        <img src="img/dislike.png">
+                                        <a href=\'process_vote_suggestion.php?vote=0&id=' . $row_data["id"] .'&post_id=' . $post_id . '&ref_index=' . $ref_index . '\'><img src="img/dislike.png"></a>
                                     </div>
                                     <div class="right_header">
                                         <h3><span class="label">Suggestion</span></h3>

@@ -78,6 +78,21 @@ if(isset($_POST['username'], $_POST['email'], $_POST['p'])){
             // Execute the prepared query.
             if (! $insert_stmt->execute()) {
                 header('Location: ../error.php?err=Registration Error: INSERT');
+            }else{
+                //Send a welcome email to the user
+                $to = $email;
+                $subject = 'Welcome to Reference Checker';
+                $message = '
+                Dear ' . $username . "\r\n" . ',
+
+                Thanks for signing up!' . "\r\n" . '
+                Your account has been created, you can now login with your credentials. You are now able to create posts and add suggestions.' . "\r\n\r\n" . '
+
+                Get started:' . "\r\n" . '
+                http://www.referencechecker.com';
+
+                $headers = 'From:noreply@referencechecker.com' . "\r\n"; // Set from headers
+                mail($to, $subject, $message, $headers); // Send our email
             }
         }
         header('Location: ../register_success.php?user=' . $username);
