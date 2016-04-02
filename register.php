@@ -12,7 +12,7 @@ include_once '/include/functions.php';
     <script src="/js/form.js"></script>
 </head>
 <body>
-    <div class="header"><h1><a href="index.php">Reference<span style="color:#0ca3d2">Correction</span></a></h1></div>
+    <div class="header"><h1><a href="index.php">Reference<span style="color:#0ca3d2">Checker</span></a></h1></div>
     <div class="container">
         <div class="register">
             <form method="post" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>">
