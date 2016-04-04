@@ -300,7 +300,7 @@ body{
 }
 .create_post_form .label{
   font-size: 16px;
-  margin-left: 12px;
+  margin-left: 22px;
 }
 .create_post_form h1{
   text-align: center;
@@ -339,8 +339,8 @@ body{
   background-image: linear-gradient(to right, #ccc, #333, #ccc);
 }
 .create_post_form p{
-  color:black;
+  color:#3A3B3B;
   text-align: left;
-  margin-left: 20px;
+  margin-left: 30px;
   font-family: 'Roboto', sans-serif;
 }
