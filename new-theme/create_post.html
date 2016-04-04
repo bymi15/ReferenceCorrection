@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Create Post</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="custom-css/index.css">
+    <!-- fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+  	<!-- *Copy and pasted* -->
+	<div class="first-nav-bar">
+	  	<nav class="navbar navbar-inverse">
+	  		<div class="container-fluid">
+	  			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home" style="color:white"></span> <span style="color:white">Reference</span><span style="color:#0ca3d2">Checker</span></a>
+	  			<ul class="nav navbar-nav navbar-right">
+	  				<a href="#" class="btn btn-primary btn-sm">Sign in</a>
+	  				<a href="#" class="btn btn-primary btn-sm">Sign Up</a>
+	  			</ul>
+	  		</div>
+	  	</nav>
+  	</div>
+
+  	<!-- <div class="header">(Unused)
+	    <h1 class="mainhead">Reference<span style="color:#0ca3d2">Checker</span></h1>
+	    <a href="#" class="btn btn-primary btn-md pull-right">Sign Up</a>
+	    <a href="#" class="btn btn-primary btn-md pull-right"> Sign In</a>
+	</div> -->
+
+  	<!-- Navigation bar and Website icon *copy and pasted*-->
+  	<nav class="navbar navbar-inverse">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+      			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span> 
+		      	</button>
+      			<!-- <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"></span> ReferenceChecker</a> -->
+    		</div>
+	    	<div class="collapse navbar-collapse" id="myNavbar">
+	      		<ul class="nav navbar-nav navbar-left">
+			        <li><a href="home.html">Home</a></li>
+			        <li><a href="about.html">About</a></li>
+			        <li class="dropdown">
+			        	<a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
+			        		<span class="caret"></span></a>
+			        	<ul class="dropdown-menu">
+				         	<li><a href="#">Cardiology &amp; Vascular Medicine</a></li>
+			                <li><a href="#">Endocrinology</a></li>
+			                <li><a href="#">Gastroenterology</a></li>
+			                <li><a href="#">Genetics &amp; Genomics</a></li>
+			                <li><a href="#">Haematology</a></li>
+			                <li><a href="#">Infectious Diseases</a></li>
+			                <li><a href="#">Neurology</a></li>
+			                <li><a href="#">Obstetrics &amp; Gynaecology</a></li>
+			                <li><a href="#">Oncology</a></li>
+			                <li><a href="#">Paediatrics</a></li>
+			                <li><a href="#">Psychiatry</a></li>
+			                <li><a href="#">Public Health</a></li>
+			                <li><a href="#">Respiratory Medicine</a></li>
+			                <li><a href="#">Urology</a></li>
+			                <li><a href="#">Other</a></li>
+				        </ul>
+			        </li> 
+			        <li class="active"><a href="create_post.html">Post</a></li> 
+	      		</ul>
+	      		<div class="col-sm-3 col-md-3 pull-right">
+        			<form class="navbar-form" role="search">
+	        			<div class="input-group">
+	            			<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+	            			<div class="input-group-btn">
+	                		<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+	            			</div>
+	        			</div>
+        			</form>
+        		</div>
+	    	</div>
+  		</div>
+	</nav>
+	<div class="create_post_form container">
+        <form method="post" action="process_create_post.php" id="create_post_form" onsubmit="return validatePost(this, this.post_title, this.post_author, this.post_url, this.post_references);">
+        	<div class="panel panel-default">
+                <div class="panel-heading">
+              		<div class="panel-title"><h1>Create a Post</h1></div>
+            	</div>
+                    <p class="label"><span class="glyphicon glyphicon-pencil"></span> Article Title</p>
+                    <p><input type="text" name="post_title" id="post_title" value="" maxlength="500" placeholder="name of article" autofocus="true"></p><br>
+                    <hr>
+                    <p class="label"><span class="glyphicon glyphicon-book"></span> Author(s)</p>
+                    <p><input type="text" name="post_author" id="post_author" value="" maxlength="500" placeholder="name of author(s)"></p><br>
+                    <hr>
+                    <p class="label"><span class="glyphicon glyphicon-th-list"></span> Category</p>
+                    <p><select name="post_category" id="post_category"></select></p><br>
+                    <hr>
+                    <p class="label"><span class="glyphicon glyphicon-tag"></span> Article URL</p>
+                    <p><input type="text" name="post_url" id="post_url" value="" maxlength="200" placeholder="link to article"></p><br>
+                    <hr>
+                    <p class="label"><span class="glyphicon glyphicon-list"></span> References</p>
+                    <p>References can be uploaded as a <b>.ris</b> or <b>.enw</b> file.</p>
+                    <p><input type="file" name="upload_file" id="upload_file"></p>
+                    <p><textarea name="post_references" id="post_references" style="resize: none; height:200px; max-height:200px; overflow-y:scroll;" placeholder="If unable to attach file copy and paste list of referenes here, be aware however there might be formatting issues"></textarea></p><br>
+                    <p>
+                    <input type="submit" value="Post" class="submit_button btn btn-primary" style=""/>
+                    <button value="Cancel" class="submit_button btn btn-primary" style="" onclick="location.href = \'index.php\';"/>Cancel</button>
+                    </p>
+            </div>
+            </form>
+    </div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
