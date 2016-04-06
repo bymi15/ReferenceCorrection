@@ -1,5 +1,15 @@
 body{
-   background: #1771AD;
+
+
+background: #232526; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #232526 , #414345); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #232526 , #414345); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+background: #000000; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #000000 , #434343); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #000000 , #434343); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+   /*1771AD*/
 }
 
 hr {
@@ -22,7 +32,7 @@ hr {
 .navbar-inverse{
   border-radius: 0px;
   margin-bottom: 0px;
-
+  font-family: 'Open Sans', sans-serif;
 }
 .navbar-inverse .container-fluid{
   padding-left: 8px;
@@ -78,10 +88,15 @@ hr {
   font-family: 'Alegreya Sans', sans-serif;
 }
 .post_section .panel-default .panel-heading{
-  background: #E6E6FA;
+  background: rgb(238,238,238); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
 }
 .post_section h4{
     font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
 }
 .post_section .post{
     -moz-transition: background .2s ease-in;
@@ -94,21 +109,30 @@ hr {
     cursor: pointer;
 }
 
+.post_section .panel{
+  background: rgb(252,255,244); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(252,255,244,1) 0%, rgba(233,233,206,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(252,255,244,1) 0%,rgba(233,233,206,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(252,255,244,1) 0%,rgba(233,233,206,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#e9e9ce',GradientType=0 ); /* IE6-9 */
+}
+
 .post {
-    background: white;
     padding: 10px;
     border-bottom: solid 1px #808080;
     overflow: hidden;
 }
 
 .post .post_title{
+    font-weight: bold;
     font-size: 16px;
     float: left;
     margin: 20px 0 20px 6px;
-    width: 63%;
+    width: 100%;
     text-align: left;
     text-decoration: none;
     color: #0492C2;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .post a{
@@ -118,14 +142,15 @@ hr {
 
 .post p{
     float: right;
-    width: 30%;
+    width: 100%;
     text-align: right;
     margin-right: 17px;
+   font-family: 'Ubuntu', sans-serif;
     color: #777;
 }
 
-.post .date{
-    color: #777;
+.post span{
+  margin-left: 10px;
 }
 
 /*Post page css*/
@@ -137,7 +162,6 @@ hr {
     margin-top: 50px;
     border-radius: 10px 10px 0 0;
 }
-
 .post_author_section a{
     text-decoration: none;
     color: #0492C2;
@@ -156,6 +180,7 @@ hr {
     margin-top: 8px;
     color: #3D3C3D;
     padding-top: 4px;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 .post_author_section .label{
     font-weight: bold;
@@ -166,7 +191,7 @@ hr {
 /*Styling of reference list section*/
 .references_section{
   padding: 0px;
-  background:white;
+  background: #F2F2F2;
   border-radius: 0px;
 }
 .references_section .panel-heading{
@@ -175,52 +200,245 @@ hr {
 .reference{
     list-style-type: none;
     background-color: white;
+    box-shadow: inset 0 0 0 2px #d0d0d0, 0 0 1px rgba(0, 0, 0, 0);
     width: 100%;
-    height: 100px;
     overflow: auto;
-    padding: 10px
+    padding: 20px;
+    padding-bottom: 5px;
+    margin: 0px;
+    font-family: 'Open Sans', sans-serif;
 }
+
+.reference div .label{
+  width: 25%;
+  height: 100%;
+  padding: 10px;
+  float: right;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
 .reference_list{
   padding: 0px;
   margin: 0px;
 }
 
-/*Styling the buttons for adding/viewing suggestions*/
-.suggestion_buttons a{
-  margin-bottom: 5px;
-  padding: 0 18px;
-  padding-top: 3px;
-  height: 20px;
-  font-size: 11px;
-  font-weight: bold;
-  color:#527881;
-  background: #cde5ef;
-  border: 1px solid;
-  border-color: #b4ccce #b3c0c8 #9eb9c2;
-  border-radius: 16px;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  box-shadow:0 1px 2px rgba(0, 0, 0, 0.15);
+/*Styling the link for adding/viewing suggestions*/
+.reference_suggestions a{
   cursor: pointer;
   float: left;
-  margin-right:5px;
+  margin-right:15px;
   text-decoration: none;
 }
 
-.suggestion_buttons a:hover{
-  background: #cde5ef;
-  border-color: #9eb9c2 #b3c0c8 #b4ccce;
-  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+
+/*About page*/
+/*Banner with background image*/
+.about-banner{
+  background:url('../img/medical.jpg') no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 330px;
+  padding-top: 100px;
+  margin-bottom: 0px;
 }
-.suggestion_buttons .voting_buttons{
-  display:inline;
+.about-banner h2, .about-banner p{
+  padding-top: 10px;
+  text-align: center;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
 }
-.suggestion_buttons .voting_buttons .glyphicon{
-  margin-right: 5px;
-  margin-left: 4px;
+.about-banner h2{
+  font-family: '', sans-serif;
+  font-size: 34px;
 }
-.suggestion_buttons .voting_buttons .glyphicon:hover{
-  cursor: pointer;
+.about-banner img{
+  border: solid 5px #DBDBDB;
+}
+/*About section with text*/
+.text-header{
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  background: #EBE4F0;
+  font-family: 'Open Sans', sans-serif;
+  color:444345;
+}
+.text-header h2{
+  text-align: center;
+}
+
+.text-header p{
+  text-align: center;
+  color: black;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+/*Create post page*/
+.create_post_form{
+  margin-top: 35px;
+}
+.create_post_form .panel{
+  background: #f2f9fe; /* Old browsers */
+  background: -moz-linear-gradient(top,  #f2f9fe 0%, #d6f0fd 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #f2f9fe 0%,#d6f0fd 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #f2f9fe 0%,#d6f0fd 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f9fe', endColorstr='#d6f0fd',GradientType=0 ); /* IE6-9 */
+
+  background: rgb(252,255,244); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(252,255,244,1) 0%, rgba(233,233,206,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(252,255,244,1) 0%,rgba(233,233,206,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(252,255,244,1) 0%,rgba(233,233,206,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#e9e9ce',GradientType=0 ); /* IE6-9 */
+}
+.create_post_form .panel-heading{
+  margin-bottom: 30px;
+  color: black;
+  background: #93cede; /* Old browsers */
+  background: -moz-linear-gradient(top,  #93cede 0%, #75bdd1 41%, #49a5bf 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #93cede 0%,#75bdd1 41%,#49a5bf 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #93cede 0%,#75bdd1 41%,#49a5bf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf',GradientType=0 ); /* IE6-9 */
+
+  background: rgb(238,238,238); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+.create_post_form .label{
+  font-size: 16px;
+  margin-left: 22px;
+}
+.create_post_form h1{
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+.create_post_form input[type=text]{
+  width: 85%;
+}
+.create_post_form textarea{
+  width: 85%;
+  height: 100px;
+  padding-top: 10px;
+}
+.create_post_form input[type=text], .create_post_form textarea, .create_post_form select{
+  margin: 5px;
+  padding: 0 10px;
+  width: 90%;
+  height:50px;
+  color: #404040;
+  background: white;
+  border:1px solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius: 3px;
+  outline: 5px solid #eff4f7;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  text-align: left;
+}
+.create_post_form input[type=text]:focus, .create_post_form textarea:focus{
+  border-color: #7dc9e2;
+  outline-color: #dceefc;
+  outline-offset: 0;
+}
+.create_post_form hr{
+  border: 0;
+  height: 1px;
+}
+.create_post_form p{
+  color:#3A3B3B;
+  text-align: left;
+  margin-left: 30px;
+  font-family: 'Roboto', sans-serif;
+}
+.create_post_form button{
+  margin-left: 20px;
+}
+#error_message p{
+  color: #FF0000;
+}
+
+/*Styling of suggestions list section*/
+.suggestions_section{
+  padding: 0px;
+  background:white;
+  border-radius: 0px;
+}
+.suggestions_section .panel-heading{
+  text-align: left;
+}
+.suggestion{
+    list-style-type: none;
+    background-color: white;
+    width: 100%;
+    height: 100px;
+    overflow: auto;
+    padding: 10px
+}
+.suggestion_list{
+  padding: 0px;
+  margin: 0px;
+}
+.suggestion_buttons{
+  margin-left: 15px;
+  margin-bottom: 15px;
+}
+.suggestion_buttons h3{
+  margin-bottom: 15px;
+}
+.suggestion_buttons a{
+  text-decoration: none;
+}
+
+/*Add suggestions page*/
+/*Here we style the form for the users to fill*/
+.suggestion_form{
+  padding: 0px;
+  padding-bottom: 20px;
+}
+.suggestion_form .panel-heading{
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+  /*background: #8FD9F2;*/
+}
+.suggestion_form form p{
+  color: black;
+  text-align: left;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+.suggestion_form form label{
+  margin-left: 15px;
+}
+.suggestion_form form div{
+  margin-left: 15px;
+}
+.suggestion_form input[type=text], textarea{
+  margin: 5px;
+  padding: 0 10px;
+  width: 97%;
+  height:50px;
+  color: #404040;
+  background: white;
+  border:1px solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius: 3px;
+  outline: 5px solid #eff4f7;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  text-align: left;
+}
+.suggestion_form textarea{
+    padding:8px;
+    height: 80px;
+}
+.suggestion_form input[type=text]:focus, textarea:focus{
+  border-color: #7dc9e2;
+  outline-color: #dceefc;
+  outline-offset: 0;
 }

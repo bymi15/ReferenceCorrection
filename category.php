@@ -1,6 +1,6 @@
 <?php
-include_once("/include/connection.php");
-include_once("/include/functions.php");
+include_once("include/connection.php");
+include_once("include/functions.php");
 
 error_reporting(E_ALL & ~E_NOTICE);
 my_session_start();
@@ -24,8 +24,9 @@ my_session_start();
     <!-- Hover.css -->
     <link rel="stylesheet" type="text/css" href="css/hover.css">
     <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
+    <?php
+    include_once("fonts.php");
+    ?>
 </head>
 <body>
     <?php
@@ -33,7 +34,8 @@ my_session_start();
 
     if (isset($_GET['id'])) {
         $x = $_GET['id'];
-        $category = getCategories()[$x];
+        $arr = getCategories();
+        $category = $arr[$x];
 
         echo '
         <div class="post_section container">
@@ -42,10 +44,10 @@ my_session_start();
                     <div class="panel-title"><h4 style="font-weight:bold">' . $category . '</h4></div>
                 </div>';
 
-        include_once '/include/connection.php';
+        include_once 'include/connection.php';
 
         //Find all the posts under the category requested
-        $sql = "SELECT posts.id, posts.article_title, posts.article_author, posts.date, posts.category, posts.author, users.username FROM posts LEFT JOIN users ON posts.author = users.id WHERE posts.category = '" . $category . "' ORDER BY date DESC LIMIT 250;";
+        $sql = "SELECT posts.id, posts.article_title, posts.article_author, posts.date, posts.category, posts.author, posts.views, users.username FROM posts LEFT JOIN users ON posts.author = users.id WHERE posts.category = '" . $category . "' ORDER BY date DESC LIMIT 250;";
 
         $result = mysqli_query($mysqli, $sql);
 
@@ -57,7 +59,7 @@ my_session_start();
         {
             if(mysqli_num_rows($result) == 0)
             {
-                echo '<h3>No posts were found under this category</h3>';
+                echo '<h3 style="margin-left: 15px;">No posts were found under this category</h3>';
             }
             else
             {
@@ -100,7 +102,7 @@ my_session_start();
                         for($i = $offset; $i < $items_per_page + $offset; $i++){
                             if(empty($rows[$i])) continue;
 
-                            echo '<div class="post hvr-overline-from-left" onclick="location.href=\'post.php?id=' . $rows[$i]['id'] . '\';">
+                            echo '<div class="post hvr-fade" onclick="location.href=\'post.php?id=' . $rows[$i]['id'] . '\';">
                             <p class="post_title"><span class="glyphicon glyphicon-stop" style="margin-right:5px"></span>"' . $rows[$i]['article_title'] . '" <span style="font-weight: normal;">by ' . $rows[$i]['article_author'] . '</span></p>
                             <p class="date">' . $rows[$i]['date'] . '</p>
                             <p><span class="glyphicon glyphicon-th-list"></span> category: <a href="#">' . $rows[$i]['category'] . '</a><span class="glyphicon glyphicon-user"></span> author: <a href="#">' . $rows[$i]['username'] . '</a></p>

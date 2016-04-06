@@ -1,7 +1,7 @@
 <div class="first-nav-bar">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home" style="color:white"></span> <span style="color:white">Reference</span><span style="color:#0ca3d2">Checker</span></a>
+            <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-home" style="color:white"></span> <span style="color:white">Reference</span><span style="color:#0ca3d2">Checker</span></a>
             <ul class="nav navbar-nav navbar-right">
                 <?php
                 if (login_check($mysqli) == true) {
@@ -37,7 +37,7 @@
                         <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <?php
-                                include_once '/include/functions.php';
+                                include_once 'include/functions.php';
                                 $categories = getCategories();
                                 for($i = 0; $i < count($categories); $i++){
                                     echo'

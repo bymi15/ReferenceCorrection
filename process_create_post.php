@@ -1,8 +1,8 @@
 <?php
-include_once("/include/connection.php");
-include_once("/include/functions.php");
-require_once("/lib/RISReader.php");
-require_once("/lib/ENWReader.php");
+include_once("include/connection.php");
+include_once("include/functions.php");
+require_once("lib/RISReader.php");
+require_once("lib/ENWReader.php");
 
 error_reporting(E_ALL & ~E_NOTICE);
 my_session_start();
@@ -65,6 +65,9 @@ if (isset($_POST['post_title'], $_POST['post_url'], $_POST['post_references'], $
 
             //stores the ID of the inserted reference list
             $reference_id = $stmt->insert_id;
+
+            //set the default timezone to London
+            date_default_timezone_set("Europe/London");
 
             //insert the post into the posts table (including the reference list id)
             $prep_stmt1 = "INSERT INTO posts(article_references, article_title, article_url, date, category, article_author, author) VALUES(?, ?, ?, ?, ?, ?, ?)";

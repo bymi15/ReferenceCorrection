@@ -1,6 +1,6 @@
 <?php
-include_once '/include/connection.php';
-include_once '/include/functions.php';
+include_once 'include/connection.php';
+include_once 'include/functions.php';
 
 error_reporting(E_ALL & ~E_NOTICE);
 my_session_start();
@@ -24,10 +24,9 @@ my_session_start();
     <!-- Main -->
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
-
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <?php
+    include_once("fonts.php");
+    ?>
 </head>
 <body>
     <?php
@@ -66,9 +65,11 @@ my_session_start();
             else
             {
                 $sql = "SELECT reference_text FROM reference WHERE id=" . $reference_id;
+
                 $result = mysqli_query($mysqli, $sql);
 
-                $references = mysqli_fetch_assoc($result)['reference_text'];
+                $data = mysqli_fetch_assoc($result);
+                $references = $data['reference_text'];
 
                 $reference_list = explode("\n", $references);
 
@@ -80,70 +81,116 @@ my_session_start();
                         $page = 1;
                     }
                 }
-                $items_per_page = 6;
+                $items_per_page = 10;
                 $offset = ($page - 1) * $items_per_page;
 
                 echo'
-                    <div class="post_author_section container">
-                        <div class="left_header">
-                            <p style="font-size:19px"><span class="glyphicon glyphicon-user"></span><span class="label" style="font-size:19px">Username</span>: <a href="#">' . $author_username . '</a></p>
-                            <p><span class="glyphicon glyphicon-eye-open"></span><span class="label">Views:</span> ' . $views . '</p>
-                            <p><span class="glyphicon glyphicon-th-list"></span> <span class="label">Category:</span> <a href="#">' . $category . '</a></p>
-                        </div>
-                        <p style="font-size:16px;"><span class="glyphicon glyphicon-pencil"></span><span class="label">Article Title:</span> ' . $article_title . '</p>
-                        <p><span class="glyphicon glyphicon-tag"></span><span class="label">Article url:</span><a href="' . $article_url .'">' . $article_url .'</a></p>
-                        <p><span class="glyphicon glyphicon-book"></span><span class="label">Author(s):</span>' . $article_author . '</p>
-                        <p><span class="glyphicon glyphicon-calendar"></span><span class="label">Date posted:</span>' . $date . '</p>
+                <div class="post_author_section container">
+                    <div class="left_header">
+                        <p style="font-size:19px"><span class="glyphicon glyphicon-user"></span><span class="label" style="font-size:19px">Username</span>: <a>' . $author_username . '</a></p>
+                        <p><span class="glyphicon glyphicon-eye-open"></span><span class="label">Views:</span> ' . $views . '</p>
+                        <p><span class="glyphicon glyphicon-th-list"></span> <span class="label">Category:</span> <a>' . $category . '</a></p>
                     </div>
+                    <p style="font-size:16px;"><span class="glyphicon glyphicon-pencil"></span><span class="label">Article Title:</span> ' . $article_title . '</p>
+                    <p><span class="glyphicon glyphicon-tag"></span><span class="label">Article url:</span><a target="_blank" href="' . $article_url .'">' . $article_url .'</a></p>
+                    <p><span class="glyphicon glyphicon-book"></span><span class="label">Author(s):</span>' . $article_author . '</p>
+                    <p><span class="glyphicon glyphicon-calendar"></span><span class="label">Date posted:</span>' . $date . '</p>
+                </div>
 
-                    <div class="references_section container panel panel-default">
-                        <div class="panel-heading">
+                <div class="references_section container panel panel-default">
+                    <div class="panel-heading">
                         <h3>References</h3>
-                        </div>';
+                    </div>';
 
-                        $row_count = count($reference_list);
-                        $page_count = 0;
-                        if ($row_count !== 0){
-                            $page_count = (int)ceil($row_count / $items_per_page);
-                            if($page > $page_count) {
-                                $page = 1;
-                            }
+                    $row_count = count($reference_list);
+                    $page_count = 0;
+                    if ($row_count !== 0){
+                        $page_count = (int)ceil($row_count / $items_per_page);
+                        if($page > $page_count) {
+                            $page = 1;
                         }
+                    }
 
-                        echo '<ul class="pagination">';
-                        for ($i = 1; $i <= $page_count; $i++) {
+                    echo '<ul class="pagination">';
+                    for ($i = 1; $i <= $page_count; $i++) {
                             if ($i === $page) { // this is current page
                                 echo '<li class="active"><a href="#">' . $i . '</a></li>';
                             } else { // show link to other page
                                 echo '<li><a href="/post.php?id=' . $id . '&page=' . $i . '">' . $i . '</a></li>';
                             }
                         }
-                echo '</ul>';
+                        echo '</ul>';
 
-                echo '<ul class="reference_list">';
+                        echo '<ul class="reference_list">';
 
-                /*Retrieve votes from database*//*
-                $sql = "SELECT reference_text FROM reference WHERE id=" . $reference_id;
-                $result = mysqli_query($mysqli, $sql);
+                        /*Display references*/
+                        for($i = $offset; $i < $items_per_page + $offset; $i++){
+                            if(!empty($reference_list[$i])){
+                                /*Count number of suggestions for this reference*/
+                                $sql = "SELECT vote FROM suggestion WHERE reference_index=" . $i . " AND post_id=" . $id;
 
-                $references = mysqli_fetch_assoc($result)*/
+                                $result = mysqli_query($mysqli, $sql);
 
-                /*Display references*/
-                for($i = $offset; $i < $items_per_page + $offset; $i++){
-                    if(!empty($reference_list[$i])){
+                                $arr = array();
+                                while($row = mysqli_fetch_assoc($result)){
+                                    $arr[] = $row;
+                                }
+                                $num_suggestions = count($arr);
+
+                                /*Colour-code this reference according to the number of suggestions and it's net votes to determine the correctness of the current reference*/
+                                $colour = 'green';
+                                if($num_suggestions <= 0){
+                                    $colour = 'green';
+                                }else{
+                                    $isAllNegative = True;
+                                    $sum = 0;
+                                    for($x = 0; $x < count($arr); $x++){
+                                        $sum = $sum + $arr[$x]['vote'];
+                                        if($arr[$x]['vote'] >= 0){
+                                            $isAllNegative = False;
+                                        }
+                                    }
+                            //At least one suggestion has a positive net vote
+                            //Hence, the reference has an error
+                                    if($isAllNegative == False){
+                                        $colour = 'red';
+                            }else{ //All suggestions are negative
+                                $net_vote = $sum/$num_suggestions;
+                                if($net_vote >= -4 && $net_vote < 0){
+                                    $colour = 'orange';
+                                }else if($net_vote < -4){
+                                    $colour = 'green';
+                                }
+                            }
+                        }
+
+                        $label_type = 'label-success';
+                        $label_text = 'Reference is correct';
+                        if($colour == 'green'){
+                            $label_type = 'label-success';
+                            $label_text = 'Reference is correct';
+                        }else if($colour == 'orange'){
+                            $label_type = 'label-warning';
+                            $label_text = 'Reference can be improved';
+                        }else if($colour == 'red'){
+                            $label_type = 'label-danger';
+                            $label_text = 'Reference is incorrect';
+                        }
+
                         echo'
                         <li class="reference hvr-border-fade"><p>' . $reference_list[$i] . '</p>
-                            <div class="suggestion_buttons">
+                            <div class="reference_suggestions">
                                 <a href="add_suggestion.php?post_id=' . $id . '&ref_index=' . $i . '"><span class="glyphicon glyphicon-plus-sign"></span> Add Suggestions</a>
                                 <a href="suggestion.php?post_id=' . $id . '&ref_index=' . $i . '"><span class="glyphicon glyphicon-eye-open"></span> View Suggestions</a>
-                                <div class="voting_buttons">
-                                    <span class="glyphicon glyphicon-thumbs-up" style="color:#2380EB"></span>
-                                    <span class="glyphicon glyphicon-thumbs-down" style="color:red"></span> <span style="font-weight:bold">Votes:</span>
+                                <div>
+                                    <span style="font-weight:bold">Suggestions: </span>' . $num_suggestions . '
+                                </div>
+                                <div class="label ' . $label_type . '">' . $label_text . '
                                 </div>
                             </div>
                         </li>';
-                        }
                     }
+                }
 
                 echo'</ul>
 

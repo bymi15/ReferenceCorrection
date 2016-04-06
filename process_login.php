@@ -1,6 +1,6 @@
 <?php
-include_once("/include/connection.php");
-include_once("/include/functions.php");
+include_once("include/connection.php");
+include_once("include/functions.php");
 
 error_reporting(E_ALL & ~E_NOTICE);
 my_session_start();

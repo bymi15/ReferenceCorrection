@@ -70,6 +70,17 @@ function attempt_login($username, $password, $mysqli) {
                 // Send an email to user saying their account is locked
                 return false;
             } else {
+                //For older version of PHP:
+                /*
+                include_once (dirname(__DIR__) . '/lib/PasswordHash.php');
+                $hasher = new PasswordHash(8, FALSE);
+                $check = $hasher->CheckPassword($password, $db_password);
+                if($check){
+                    //password is correct
+                }
+                */
+
+                //For PHP version 5.5+
                 // Check if the password in the database matches
                 // the password the user submitted. We are using
                 // the password_verify function to avoid timing attacks.
@@ -120,8 +131,7 @@ function check_brute($user_id, $ip_address, $mysqli) {
                              WHERE user_id = ?
                              AND ip_address = ?
                             AND time > '$valid_attempts'")) {
-        $stmt->bind_param('i', $user_id);
-        $stmt->bind_param('s', $ip_address);
+        $stmt->bind_param('is', $user_id, $ip_address);
 
         // Execute the prepared query.
         $stmt->execute();

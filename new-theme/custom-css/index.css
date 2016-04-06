@@ -24,7 +24,7 @@ body{
 }
 .navbar-inverse .navbar-nav .dropdown-menu{
 	background-color: #222;
-	border-color: #080808;	 
+	border-color: #080808;
 }
 
 .navbar-inverse .navbar-nav .dropdown-menu a{
@@ -145,7 +145,7 @@ body{
     margin-right: 10px;
     margin-left: 5px;
     padding: 12px 10px 20px 10px;
-    
+
 }
 
 .post_author_section p{
@@ -172,12 +172,12 @@ body{
 .reference{
     list-style-type: none;
     background-color: white;
-    border-bottom: solid 1px; 
+    border-bottom: solid 1px;
     width: 100%;
     height: 140px;
     overflow: auto;
     /*top right bottom left*/
-    padding: 0px 10px 0px 10px; 
+    padding: 0px 10px 0px 10px;
 }
 .reference p{
   color: #0C6A8A;
@@ -193,6 +193,7 @@ body{
     background-color: #A0D5FC;
 }
 .reference .progress{
+  height: 40px;
   width: 33%;
   float: right;
 }
@@ -241,15 +242,15 @@ body{
 /*About page*/
 /*Banner with background image*/
 .about-banner{
-  background:url('../images/medical.jpg') no-repeat center center fixed; 
+  background:url('../images/medical.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  min-height: 330px; 
-  padding-top: 100px; 
+  min-height: 330px;
+  padding-top: 100px;
   margin-bottom: 0px;
-} 
+}
 .about-banner h2,p{
   padding-top: 10px;
   text-align: center;
@@ -261,7 +262,7 @@ body{
   font-size: 34px;
 }
 .about-banner img{
-  border: solid 5px #DBDBDB; 
+  border: solid 5px #DBDBDB;
 }
 /*About section with text*/
 .text-header{
@@ -310,7 +311,7 @@ body{
 }
 .create_post_form input[type=text], textarea{
   margin: 5px;
-  padding: 0 10px;  
+  padding: 0 10px;
   width: 90%;
   height:50px;
   color: #404040;
@@ -363,8 +364,8 @@ body{
 }
 .suggestion_form input[type=text], textarea{
   margin: 5px;
-  padding: 0 10px;  
-  width: 90%;
+  padding: 0 10px;
+  width: 100%;
   height:50px;
   color: #404040;
   background: white;

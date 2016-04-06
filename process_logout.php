@@ -1,5 +1,5 @@
 <?php
-include_once '/include/functions.php';
+include_once 'include/functions.php';
 
 error_reporting(E_ALL & ~E_NOTICE);
 my_session_start();
@@ -21,5 +21,8 @@ setcookie(session_name(),
 //Destroy the session
 session_destroy();
 
-header('Location: ../index.php');
+echo '<script>alert("You have been logged out.");</script>';
+
+header('refresh:0.1;url=../index.php');
+
 ?>

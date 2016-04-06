@@ -1,6 +1,6 @@
 <?php
-include_once '/include/connection.php';
-include_once '/include/functions.php';
+include_once 'include/connection.php';
+include_once 'include/functions.php';
 
 error_reporting(E_ALL & ~E_NOTICE);
 my_session_start();
@@ -29,7 +29,9 @@ if(isset($_GET['id'], $_GET['ref_index'], $_GET['post_id'], $_GET['vote'])){
             header('Location: ../suggestion.php?post_id=' . $post_id . '&ref_index=' . $ref_index);
         }
     }else{
-        echo '<h1 style="text-align: center;"> You have already casted your vote.</h1><br>';
+        echo '<script>alert("You have already casted your vote.");</script>';
+
+        header('refresh:0.1;url=../suggestion.php?post_id=' . $post_id . '&ref_index=' . $ref_index);
     }
 
 }

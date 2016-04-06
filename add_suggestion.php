@@ -1,20 +1,32 @@
 <?php
-include_once '/include/connection.php';
-include_once '/include/functions.php';
+include_once 'include/connection.php';
+include_once 'include/functions.php';
 
 error_reporting(E_ALL & ~E_NOTICE);
 my_session_start();
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Reference Checker: Add Suggestion</title>
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-    <script src="/js/form.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Reference Checker: Add Suggestions</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Hover.css -->
+    <link rel="stylesheet" type="text/css" href="css/hover.css">
+    <!-- Main -->
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <!-- Fonts -->
+    <?php
+    include_once 'fonts.php';
+    ?>
 </head>
 <body>
-    <div class="container">
         <?php
         include 'header.php';
 
@@ -43,53 +55,70 @@ my_session_start();
                 {
                     $sql = "SELECT reference_text FROM reference WHERE id=" . $reference_id;
                     $result = mysqli_query($mysqli, $sql);
-                    $references = mysqli_fetch_assoc($result)['reference_text'];
+
+                    $data = mysqli_fetch_assoc($result);
+                    $references = $data['reference_text'];
+
                     $reference_list = explode("\n", $references);
 
-                    echo'
-                    <div class="navigation">
-                        <div class="post_author_section">
-                            <div class="left_header">
-                                <h3>Username: <a href="#">' . $author_username . '</a></h3>
-                                <p><span class="label">Views:</span> ' . $views . '</p>
-                                <p><span class="label">Category:</span> <a href="#">' . $category . '</a></p>
-                            </div>
-                            <p style="font-size:16px;"><span class="label">Article Title:</span> ' . $article_title . '</p>
-                            <p><span class="label">Article url:</span> <a href="' . $article_url .'" target="_blank">' . $article_url . '</a></p>
-                            <p><span class="label">Author(s): </span>' . $article_author . '</p>
-                            <p><span class="label">Date posted: </span>' . $date . '</p>
+                   echo'
+                    <div class="post_author_section container">
+                        <div class="left_header">
+                            <p style="font-size:19px"><span class="glyphicon glyphicon-user"></span><span class="label" style="font-size:19px">Username</span>: <a href="#">' . $author_username . '</a></p>
+                            <p><span class="glyphicon glyphicon-eye-open"></span><span class="label">Views:</span> ' . $views . '</p>
+                            <p><span class="glyphicon glyphicon-th-list"></span> <span class="label">Category:</span> <a href="#">' . $category . '</a></p>
                         </div>
+                        <p style="font-size:16px;"><span class="glyphicon glyphicon-pencil"></span><span class="label">Article Title:</span> ' . $article_title . '</p>
+                        <p><span class="glyphicon glyphicon-tag"></span><span class="label">Article url:</span><a href="' . $article_url .'">' . $article_url .'</a></p>
+                        <p><span class="glyphicon glyphicon-book"></span><span class="label">Author(s):</span>' . $article_author . '</p>
+                        <p><span class="glyphicon glyphicon-calendar"></span><span class="label">Date posted:</span>' . $date . '</p>
                     </div>
 
-                    <div class="reference_header">
-                        <h3>The current reference is: <span style="color:#1B9AF5">' . $reference_list[$ref_index] . '</span></h3>
-                    </div>
+                    <div class="suggestion_form container panel panel-default">
 
-                    <div class="suggestion_form">
+                        <div class="current-reference panel-heading">
+                        <h3>Add a suggestion</h3>
+                        <hr>
+                        <h3 style="font-size:19px">The current reference is: <span style="color:#197B9C">' . $reference_list[$ref_index] . '</span></h3>
+                        </div>
+
                         <form method="post" action="process_add_suggestion.php" onsubmit="return validateSuggestion(this, this.correction);">
-                            <p class="label">Correction</p>
-                            <p><input type="text" name="correction" id="correction" placeholder="Enter the correction you would like to suggest"></p>
-                            <p class="label">Additional Comments</p>
-                            <p><textarea name=\'comment\' id=\'comment\' placeholder="Any additional comments about this reference?"></textarea></p>
+                            <p><i class="fa fa-lightbulb-o"></i> Correction</p>
+                            <p><input type="text" name="correction" placeholder="Enter the correction you would like to suggest."></p>
+                            <p><i class="fa fa-file-text"></i> What is type of error is it?</p>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default"><input type="radio" name="error_type" value="citation">Citation</label>
+                                <label class="btn btn-default"><input type="radio" name="error_type" value="quotation">Quotation</label>
+                            </div>
+                            <br><br>
+                            <p><span class="glyphicon glyphicon-comment"></span> Additional Comments</p>
+                            <p><textarea name="comment" id="comment" placeholder="Additional comments for this reference?"></textarea></p>
                             <input type="hidden" name="post_id" id="post_id" value="' . $post_id . '">
                             <input type="hidden" name="ref_index" id="ref_index" value="' . $ref_index . '">
                             <input type="hidden" name="by" id="by" value="' . $author_id . '">
-                            <button type="submit" class="submit_button">Submit</button>
-                            <a href="post.php?id=' . $post_id . '"<button type="button" class="submit_button">Cancel</button></a>
+                            <p>
+                                <button type="submit" class="submit_button btn btn-primary">Submit</button>
+                                <a href="post.php?id=' . $post_id . '"<button type="button" class="submit_button btn btn-warning">Cancel</button></a>
+                            </p>
                         </form>
                     </div>
                     ';
             }
 
-        }else { echo'
-                <h1 style="text-align: center;">Only registered users may add suggestions.</h1><br><h2 style="text-align: center;">If you would like to add a suggestion, please <a href="login.php">login</a> or <a href="register.php">register</a>.</h2><br>';
-            }
+        }else {
+            echo'<h1 style="text-align: center; font-weight: bold; color: white;">Only registered users may add suggestions.</h1><br><h2 style="text-align: center; color: white;">If you wish to add a suggestion, please <a href="login.php">login</a> or <a href="register.php">register</a>.</h2><br>';
+        }
         }else{
             echo'
-            <h1 style="text-align: center;">Error: Invalid request</h1><br><h2 style="text-align: center;">Return to <a href="index.php">home page</a></h2><br>';
+            <h1 style="text-align: center; font-weight: bold; color: white;">Error: Invalid request</h1><br><h2 style="text-align: center; color: white;">Return to <a href="index.php">home page</a></h2><br>';
         }
         ?>
-
-<script src="/js/upload_file.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- My script -->
+    <script src="/js/upload_file.js"></script>
+    <script src="/js/form.js"></script>
 </body>
 </html>

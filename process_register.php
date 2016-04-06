@@ -1,5 +1,5 @@
 <?php
-include_once '/include/connection.php';
+include_once 'include/connection.php';
 error_reporting(E_ALL & ~E_NOTICE);
 
 $error_msg = "";
@@ -72,6 +72,12 @@ if(isset($_POST['username'], $_POST['email'], $_POST['p'])){
         // the password_verify function.
         $password = password_hash($password, PASSWORD_BCRYPT);
 
+        //For older versions of PHP:
+        /*
+        include_once 'lib/PasswordHash.php';
+        $hasher = new PasswordHash(8, FALSE);
+        $password = $hasher->HashPassword($password);
+        */
         // Insert the new user into the database
         if ($insert_stmt = $mysqli->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)")) {
             $insert_stmt->bind_param('sss', $username, $email, $password);

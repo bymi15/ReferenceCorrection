@@ -1,6 +1,6 @@
 <?php
 include_once 'process_register.php';
-include_once '/include/functions.php';
+include_once 'include/functions.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,8 +8,8 @@ include_once '/include/functions.php';
 <head>
     <title>Reference Checker: Create an account</title>
     <link rel="stylesheet" type="text/css" href="/css/register.css">
-    <script src="/js/sha512.js"></script>
-    <script src="/js/form.js"></script>
+    <script src="js/sha512.js"></script>
+    <script src="js/form.js"></script>
 </head>
 <body>
     <div class="header"><h1><a href="index.php">Reference<span style="color:#0ca3d2">Checker</span></a></h1></div>
