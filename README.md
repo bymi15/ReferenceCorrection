@@ -1,5 +1,4 @@
 # ReferenceCorrection
-Crowd-sourced reference correction web app designed to improve medical research by correcting references in medical research papers.
 
 How many times have you tried to chase up a reference only to find that the information is wrong? Or that the resulting paper does not justify the sentence? It is all too common and all too frustrating.
 
