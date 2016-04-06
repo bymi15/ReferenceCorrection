@@ -1,6 +1,40 @@
-body{
-	 background: #0ca3d2;
+/*Fixed styling elements*/
+.default-textbox input[type=text],textarea{
+  width: 85%;
+  height: 100px;
+  padding-top: 10px;
+  margin: 5px;
+  padding: 0 10px;  
+  width: 90%;
+  height:50px;
+  color: #404040;
+  background: white;
+  border:1px solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius: 3px;
+  outline: 5px solid #eff4f7;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  text-align: left;
 }
+.default-textbox textarea{
+  height: 150px;
+  padding-top: 10px;
+}
+.default-textbox input[type=text]:focus, textarea:focus{
+  border-color: #7dc9e2;
+  outline-color: #dceefc;
+  outline-offset: 0;
+}
+body{
+	background: #232526; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #232526 , #414345); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #232526 , #414345); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  background: #000000; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #000000 , #434343); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #000000 , #434343); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 /*Navigation bar styling*/
 .navbar-inverse .navbar-right .btn-primary{
 	margin-top: 9px;
@@ -24,7 +58,7 @@ body{
 }
 .navbar-inverse .navbar-nav .dropdown-menu{
 	background-color: #222;
-	border-color: #080808;
+	border-color: #080808;	 
 }
 
 .navbar-inverse .navbar-nav .dropdown-menu a{
@@ -59,6 +93,7 @@ body{
 	font-family: 'Montserrat', sans-serif;
 	font-size: 26px;
 	font-weight:bold;
+  color: white;
 }
 #myCarousel .carousel-caption p{
 	font-family: 'Montserrat', sans-serif;
@@ -145,7 +180,7 @@ body{
     margin-right: 10px;
     margin-left: 5px;
     padding: 12px 10px 20px 10px;
-
+    
 }
 
 .post_author_section p{
@@ -172,12 +207,12 @@ body{
 .reference{
     list-style-type: none;
     background-color: white;
-    border-bottom: solid 1px;
+    border-bottom: solid 1px; 
     width: 100%;
     height: 140px;
     overflow: auto;
     /*top right bottom left*/
-    padding: 0px 10px 0px 10px;
+    padding: 0px 10px 0px 10px; 
 }
 .reference p{
   color: #0C6A8A;
@@ -193,7 +228,6 @@ body{
     background-color: #A0D5FC;
 }
 .reference .progress{
-  height: 40px;
   width: 33%;
   float: right;
 }
@@ -242,15 +276,15 @@ body{
 /*About page*/
 /*Banner with background image*/
 .about-banner{
-  background:url('../images/medical.jpg') no-repeat center center fixed;
+  background:url('../images/medical.jpg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  min-height: 330px;
-  padding-top: 100px;
+  min-height: 330px; 
+  padding-top: 100px; 
   margin-bottom: 0px;
-}
+} 
 .about-banner h2,p{
   padding-top: 10px;
   text-align: center;
@@ -262,7 +296,7 @@ body{
   font-size: 34px;
 }
 .about-banner img{
-  border: solid 5px #DBDBDB;
+  border: solid 5px #DBDBDB; 
 }
 /*About section with text*/
 .text-header{
@@ -301,33 +335,6 @@ body{
 .create_post_form h1{
   text-align: center;
 }
-.create_post_form input[type=text]{
-  width: 85%;
-}
-.create_post_form textarea{
-  width: 85%;
-  height: 100px;
-  padding-top: 10px;
-}
-.create_post_form input[type=text], textarea{
-  margin: 5px;
-  padding: 0 10px;
-  width: 90%;
-  height:50px;
-  color: #404040;
-  background: white;
-  border:1px solid;
-  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
-  border-radius: 3px;
-  outline: 5px solid #eff4f7;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
-  text-align: left;
-}
-.create_post_form input[type=text]:focus, textarea:focus{
-  border-color: #7dc9e2;
-  outline-color: #dceefc;
-  outline-offset: 0;
-}
 .create_post_form hr{
   border: 0;
   height: 1px;
@@ -362,29 +369,6 @@ body{
 .suggestion_form form label{
   margin-left: 15px;
 }
-.suggestion_form input[type=text], textarea{
-  margin: 5px;
-  padding: 0 10px;
-  width: 100%;
-  height:50px;
-  color: #404040;
-  background: white;
-  border:1px solid;
-  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
-  border-radius: 3px;
-  outline: 5px solid #eff4f7;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
-  text-align: left;
-}
-.suggestion_form textarea{
-    padding:8px;
-    height: 80px;
-}
-.suggestion_form input[type=text]:focus, textarea:focus{
-  border-color: #7dc9e2;
-  outline-color: #dceefc;
-  outline-offset: 0;
-}
 /*Styling the submit buttons*/
 .submit_buttons{
   margin-left: 12px;
@@ -413,4 +397,75 @@ body{
   border-color: #9eb9c2 #b3c0c8 #b4ccce;
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+
+/* View Suggestions page */
+.suggestion_form{
+ background: rgb(252,255,244); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(252,255,244,1) 0%, rgba(233,233,206,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(252,255,244,1) 0%,rgba(233,233,206,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(252,255,244,1) 0%,rgba(233,233,206,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#e9e9ce',GradientType=0 ); /* IE6-9 */
+}
+.suggestion_form .panel-heading{
+  margin-bottom: 0px;
+}
+.suggestion .modal-content .modal-body{
+  background: #F5F1E9;
+}
+.suggestion .modal-header,.modal-footer{
+  text-align: center;
+  background: rgb(238,238,238); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+.suggestion .suggestion-content{
+  padding-bottom: 10px;
+}
+.suggestion .suggestion-content .suggestion-label{
+  text-decoration: underline;
+  color: #3E81AD;
+  margin-bottom: 0px;
+}
+.suggestion p,h3{
+  text-align: center;
+  margin-top: 0px;
+  color: #3D3C3D;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.suggestion .suggestion-content p{
+  text-align: left;
+  margin-left: 15px;
+  font-size: 16px;
+}
+.suggestion hr{
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  margin: 0px;
+}
+.suggestion .agreement-buttons {
+  text-align: center;
+}
+.suggestion .comment-section p{
+  text-align: left;
+  margin-left: 15px;
+  font-size: 16px;
+}
+.suggestion .user-header{
+  padding-top:10px;
+  padding-bottom: 10px; 
+  background: rgb(238,238,238); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+.suggestion_form .return-buttons{
+  text-align: center;
+  margin-top: 10px;
 }
