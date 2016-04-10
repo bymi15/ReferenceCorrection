@@ -34,7 +34,10 @@ my_session_start();
             $post_id = $_GET['post_id'];
             $ref_index = $_GET['ref_index'];
 
+            $by = '';
+
             if (login_check($mysqli) == true) {
+                $by = $_SESSION['user_id'];
 
                 //retrieve the post from the database
                 $stmt = $mysqli->prepare("SELECT posts.article_title, posts.article_author, posts.date, posts.category, posts.author, posts.article_references, posts.article_url, posts.views, users.username FROM posts LEFT JOIN users ON posts.author = users.id WHERE posts.id = ? LIMIT 1");
@@ -84,7 +87,7 @@ my_session_start();
 
                         <form method="post" action="process_add_suggestion.php" onsubmit="return validateSuggestion(this, this.correction);">
                             <p><i class="fa fa-lightbulb-o"></i> Correction</p>
-                            <p><input type="text" name="correction" placeholder="Enter the correction you would like to suggest."></p>
+                            <p><input type="text" name="correction" placeholder="Enter the correction you would like to suggest." autofocus></p>
                             <p><i class="fa fa-file-text"></i> What is type of error is it?</p>
                             <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-default"><input type="radio" name="error_type" value="citation">Citation</label>
@@ -95,7 +98,7 @@ my_session_start();
                             <p><textarea name="comment" id="comment" placeholder="Additional comments for this reference?"></textarea></p>
                             <input type="hidden" name="post_id" id="post_id" value="' . $post_id . '">
                             <input type="hidden" name="ref_index" id="ref_index" value="' . $ref_index . '">
-                            <input type="hidden" name="by" id="by" value="' . $author_id . '">
+                            <input type="hidden" name="by" id="by" value="' . $by . '">
                             <p>
                                 <button type="submit" class="submit_button btn btn-primary">Submit</button>
                                 <a href="post.php?id=' . $post_id . '"<button type="button" class="submit_button btn btn-warning">Cancel</button></a>

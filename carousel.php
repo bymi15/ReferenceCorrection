@@ -12,7 +12,7 @@
                 <img src="img/research.jpg" alt="apps" class="img-responsive">
                 <div class="carousel-caption">
                     <h3>Welcome to Reference Checker</h3>
-                    <p>Find out more about what reference correction is and what it is used for!</p>
+                    <p>This website helps to fix referencing errors in medical research papers.</p>
                 </div>
             </a>
         </div>
@@ -21,7 +21,7 @@
                 <img src="img/post.jpg" alt="kids" class="img-responsive">
                 <div class="carousel-caption">
                     <h3>Create a post</h3>
-                    <p>Post an article which you think have references that need improving!</p>
+                    <p>Post a paper which you think have references that need improving!</p>
                 </div>
             </a>
         </div>
@@ -30,7 +30,7 @@
                 <img src="img/typing.jpg" alt="robotics" class="img-responsive">
                 <div class="carousel-caption">
                     <h3>Start Now!</h3>
-                    <p>Sign in and start posting right away or register a new account!</p>
+                    <p>Register a new account or sign in and start posting right away!</p>
                 </div>
             </a>
         </div>

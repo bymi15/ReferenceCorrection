@@ -1,5 +1,5 @@
 body {
-  font: 13px/20px "Lucida Grande", Tahoma, Verdana, sans-serif;
+  font: 13px/20px "Open Sans", Ubuntu, Source Sans Pro, sans-serif;
   color: #404040;
   background: #1771AD;
 }
@@ -8,60 +8,48 @@ body {
     color: #b30000;
 }
 .header{
-	margin-right: auto;
-	margin-left: auto;
-	width:900px;
-	text-align: center;
-	margin-top: 20px;
-	padding: 20px;
-	background-color: #383838;
-	border-radius:10px;
+    margin-right: auto;
+    margin-left: auto;
+    width:900px;
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #383838;
+    border-radius:10px;
 }
 .header a{
-	text-decoration: none;
-	color: white;
+    text-decoration: none;
+    color:white;
 }
 .container{
-	margin: 50px auto;
-	padding-top: 20px;
-	width:640px;
+    margin: 50px auto;
+    padding-top: 20px;
 }
-
 .register{
-	position: relative;
-	margin:0 auto;
-	padding: 20px 20px 20px;
-	width: 310px;
-	background: white;
-}
-.register:before{
-	content: '';
-	position: absolute;
-	top:-8px;
-	right:-8px;
-	left: -8px;
-	bottom: -8px;
-	z-index: -1;
-	background: rgba(0, 0, 0, 0.08);
-  	border-radius: 4px;
+    position: relative;
+    margin:0 auto;
+    padding: 20px 20px 10px;
+    width: 410px;
+    background: white;
 }
 .register h1{
-	margin:-20px -20px 21px;
-	line-height: 40px;
-	font-size: 15px;
-	font-weight: bold;
-	color:#555;
-	text-align: center;
-	background: #E6E6FA;
-	border-bottom: 1px solid #cfcfcf;
-}
+    margin:-20px -20px 21px;
+    line-height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    color:#555;
+    text-align: center;
+    background: #E6E6FA;
+    border-bottom: 1px solid #cfcfcf;
+    border-radius: 3px 3px 0 0;
+ }
 .register p{
-	margin: 20px 0 0;
+    margin: 20px 0 0;
 }
 .register input[type=text], .register input[type=password] {
   margin: 5px;
   padding: 0 10px;
-  width: 278px;
+  width: 95%;
   height:34px;
   color: #404040;
   background: white;
@@ -113,20 +101,35 @@ input[type=button]:active {
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
-.submit{
-	text-align: center;
+.register p.submit{
+    text-align: center;
+}
+.register p.remember_me{
+    float: left;
+    line-height: 31px;
+}
+.register p.remember_me label{
+    font-size: 12px;
+    color: #777;
+    cursor: pointer;
+}
+.register p.remember_me input {
+  position: relative;
+  bottom: 1px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.register-help{
+    margin: 20px 0px;
+    font-size: 11px;
+    text-align: center;
+    color: white;
+}
+.register-help a{
+    text-decoration: none;
+    color: white;
+}
+.register-help a:hover{
+    font-weight: bold;
 }
 
-.helper{
-	margin: 20px 0px;
-	font-size: 11px;
-	text-align: center;
-	color: white;
-}
-.helper a{
-	text-decoration: none;
-	color: white;
-}
-.helper a:hover{
-	text-decoration: underline;
-}

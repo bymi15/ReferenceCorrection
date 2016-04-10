@@ -87,7 +87,7 @@ my_session_start();
                 echo'
                 <div class="post_author_section container">
                     <div class="left_header">
-                        <p style="font-size:19px"><span class="glyphicon glyphicon-user"></span><span class="label" style="font-size:19px">Username</span>: <a>' . $author_username . '</a></p>
+                        <p style="font-size:19px"><span class="glyphicon glyphicon-user"></span><span class="label" style="font-size:19px">Username:</span> <a>' . $author_username . '</a></p>
                         <p><span class="glyphicon glyphicon-eye-open"></span><span class="label">Views:</span> ' . $views . '</p>
                         <p><span class="glyphicon glyphicon-th-list"></span> <span class="label">Category:</span> <a>' . $category . '</a></p>
                     </div>
