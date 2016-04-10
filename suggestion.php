@@ -14,7 +14,7 @@ my_session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Reference Checker: Suggestion</title>
+    <title>Reference Checker: Suggestions</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -32,11 +32,16 @@ my_session_start();
     <?php
     include 'header.php';
 
+    $by = "Anonymous";
+    if (login_check($mysqli) == true) {
+        $by = $_SESSION['username'];
+    }
+
     if (isset($_GET['ref_index'], $_GET['post_id'])) {
         $post_id = $_GET['post_id'];
         $ref_index = $_GET['ref_index'];
 
-                //retrieve the post from the database
+        //retrieve the post from the database
         $stmt = $mysqli->prepare("SELECT posts.article_title, posts.article_author, posts.date, posts.category, posts.author, posts.article_references, posts.article_url, posts.views, users.username FROM posts LEFT JOIN users ON posts.author = users.id WHERE posts.id = ? LIMIT 1");
 
         $stmt->bind_param('i', $post_id);
@@ -64,7 +69,7 @@ my_session_start();
                     echo'
                     <div class="post_author_section container">
                         <div class="left_header">
-                            <p style="font-size:19px"><span class="glyphicon glyphicon-user"></span><span class="label" style="font-size:19px">Username</span>: <a>' . $author_username . '</a></p>
+                            <p style="font-size:19px"><span class="glyphicon glyphicon-user"></span><span class="label" style="font-size:19px">Username:</span> <a>' . $author_username . '</a></p>
                             <p><span class="glyphicon glyphicon-eye-open"></span><span class="label">Views:</span> ' . $views . '</p>
                             <p><span class="glyphicon glyphicon-th-list"></span> <span class="label">Category:</span> <a>' . $category . '</a></p>
                         </div>
@@ -74,96 +79,296 @@ my_session_start();
                         <p><span class="glyphicon glyphicon-calendar"></span><span class="label">Date posted:</span>' . $date . '</p>
                     </div>
 
-                    <div class="references_section container panel panel-default">
-                        <div class="panel-heading">
+                    <div class="suggestion_form container panel panel-default">
+                        <div class="current-reference panel-heading">
                             <h3 style="display: inline-block;">Suggestions</h3>
-                            <a href="post.php?id=' . $post_id . '"><button class="btn btn-primary" style="float: right; margin-top: 15px;">Return to post</button></a>
+                            <a href="add_suggestion.php?post_id=' . $post_id . '&ref_index=' . $ref_index . '"><button class="btn btn-primary" style="float: right; margin-top: 15px; margin-left: 10px;"><span class="glyphicon glyphicon-plus-sign"></span> Add a suggestion</button></a>
+                            <a href="post.php?id=' . $post_id . '"><button class="btn btn-warning" style="float: right; margin-top: 15px;"><span class="glyphicon glyphicon-menu-left"></span> Return to post</button></a>
+                            <h3 style="font-size:19px">The current reference is: <span style="color:#197B9C">' . $reference_list[$ref_index] . '</span></h3>
                         </div>';
 
-                        $sql = "SELECT suggestion.id, suggestion.comment, suggestion.correction, suggestion.vote, suggestion.author, suggestion.error_type, users.username FROM suggestion LEFT JOIN users ON suggestion.author = users.id WHERE post_id=" . $post_id . " AND reference_index=" . $ref_index;
+                        echo '<a name="c_page"></a>'; //anchor tag
+
+                        $sql = "SELECT suggestion.id, suggestion.comment, suggestion.correction, suggestion.vote, suggestion.author, suggestion.error_type, users.username FROM suggestion LEFT JOIN users ON suggestion.author = users.id WHERE post_id=" . $post_id . " AND reference_index=" . $ref_index . " ORDER BY vote DESC";
 
                         $result = mysqli_query($mysqli, $sql);
 
                         if(mysqli_num_rows($result) <= 0){
                          echo'
-                         <div class="suggestion_buttons">
-                            <h3>No suggestions have been made.</h3><br>
-                            <a style="margin-right: 15px;" href=\'add_suggestion.php?post_id=' . $post_id . '&ref_index=' . $ref_index . '\'><button class="btn btn-primary">Add Suggestion</button></a>
-                            <a href=\'post.php?id=' . $post_id . '\'><button class="btn btn-warning">Back to post</button></a>
+                         <div class="suggestion_buttons" style="margin-bottom: 0; padding-bottom: 0;">
+                            <h4 style="font-family: \'Roboto\', sans-serif; font-weight: bold; margin-bottom: 5px; margin-top: 20px; margin-left: 15px;">No suggestions have been made.</h4>
                         </div>
                         ';
                         }else{
-                            //pagination
-                            $page = 1;
-                            if(isset($_GET['page'])) {
-                                $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
-                                if($page === false) {
-                                    $page = 1;
-                                }
-                            }
-                            $items_per_page = 5;
-                            $offset = ($page - 1) * $items_per_page;
-
-                            $row_count = mysqli_num_rows($result);
-                            $page_count = 0;
-                            if ($row_count !== 0){
-                                $page_count = (int)ceil($row_count / $items_per_page);
-                                if($page > $page_count) {
-                                    $page = 1;
-                                }
-                            }
-
-                            echo '<ul class="pagination">';
-                            for ($i = 1; $i <= $page_count; $i++) {
-                            if ($i === $page) { // this is current page
-                                echo '<li class="active"><a href="#">' . $i . '</a></li>';
-                            } else { // show link to other page
-                                echo '<li><a href="/suggestion.php?ref_index=' . $ref_index . '&post_id=' . $post_id . '&page=' . $i . '">' . $i . '</a></li>';
-                            }
-                            echo '</ul>';
-
-                            echo '<ul class="suggestion_list">';
-
                             $rows = array();
                             while($row = mysqli_fetch_assoc($result)){
                                 $rows[] = $row;
                             }
 
-                            for($i = $offset; $i < $items_per_page + $offset; $i++){
-                                if(empty($rows[$i])) continue;
+                            //seperate the citation and quotation errors into two different arrays
+                            $cRows = array();
+                            $qRows = array();
+                            for($i = 0; $i < count($rows); $i++){
+                                if($rows[$i]["error_type"] == 0){
+                                    $cRows[] = $rows[$i];
+                                }else{
+                                    $qRows[] = $rows[$i];
+                                }
+                            }
 
-                                //0 = citation, 1 = quotation
-                                $error_type = $rows[$i]["error_type"];
+                            //Citation errors
+                            echo '
+                            <div class="panel panel-heading" style="margin-bottom: 0px;">
+                                <h3 style="text-align: center; margin-top: 0px; font-weight: bold;">Citation Errors</h3>
+                            ';
+                            if(empty($cRows)){
+                                echo '
+                                <div class="suggestion">
+                                    <h3>No citation errors to display</h3>
+                                </div>
+                            </div>
+                                ';
+                            }else{
+                                //pagination
+                                $page = 1;
+                                if(isset($_GET['c_page'])) {
+                                    $page = filter_input(INPUT_GET, 'c_page', FILTER_VALIDATE_INT);
+                                    if($page === false) {
+                                        $page = 1;
+                                    }
+                                }
+                                $items_per_page = 2;
+                                $offset = ($page - 1) * $items_per_page;
+
+                                $row_count = count($cRows);
+                                $page_count = 0;
+                                if ($row_count !== 0){
+                                    $page_count = (int)ceil($row_count / $items_per_page);
+                                    if($page > $page_count) {
+                                        $page = 1;
+                                    }
+                                }
+                                echo '<ul class="pagination" style="margin-top: 0px; margin-bottom: 0px;">';
+
+                                for ($i = 1; $i <= $page_count; $i++) {
+                                    if ($i === $page) { // this is current page
+                                        echo '<li class="active"><a href="#">' . $i . '</a></li>';
+                                    } else { // show link to other page
+                                        echo '<li><a href="/suggestion.php?ref_index=' . $ref_index . '&post_id=' . $post_id . '&c_page=' . $i . '#c_page">' . $i . '</a></li>';
+                                    }
+                                }
+                                echo '</ul>
+                                </div>';
+
+                                for($i = $offset; $i < $items_per_page + $offset; $i++){
+                                    if(empty($cRows[$i])) continue;
+
+                                    echo'
+                                    <div class="suggestion">
+                                        <div class="user-header">
+                                            <h3><span class="glyphicon glyphicon-user"></span> User: ' . $cRows[$i]["username"] . '</h3>
+                                            <div class="agreement-buttons">
+                                                <a href=\'process_vote_suggestion.php?vote=1&id=' . $cRows[$i]["id"] . '&post_id=' . $post_id . '&ref_index=' . $ref_index . '\'><button type="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-thumbs-up" style="color:white"></span> I Agree</button></a>
+                                                <span style="font-size: 26px; font-weight: bold; margin-left: 10px; margin-right: 10px;">' . $cRows[$i]["vote"] . '</span>
+                                                <a data-toggle="modal" data-target="#modal' . $cRows[$i]["id"] . '"><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-thumbs-down" style="color:white"></span> I Disagree</button></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="modal' . $cRows[$i]["id"] . '" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Disagree with this suggestion?</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="default-textbox" method="post" action="process_reply_suggestion.php">
+                                                            <p><span class="glyphicon glyphicon-comment"></span> Why do you disagree? (optional)</p>
+                                                            <p><textarea name="comment" id="comment" placeholder="Add a comment to explain why you disagree with this suggestion"></textarea></p>
+                                                            <input type="hidden" name="by" value="' . $by . '">
+                                                            <input type="hidden" name="id" value="' . $cRows[$i]["id"] . '">
+                                                            <input type="hidden" name="post_id" value="' . $post_id . '">
+                                                            <input type="hidden" name="ref_index" value="' . $ref_index . '">
+                                                            <input type="hidden" name="vote" value="0">
+                                                            <br>
+                                                            <div style="text-align: center;">
+                                                            <button type="submit" class="btn btn-primary">Confirm</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="suggestion-content">
+                                            <p class="suggestion-label" ><i class="fa fa-lightbulb-o"></i> Correction</p>
+                                            <p>' . $cRows[$i]["correction"] . '</p><br>';
+                                            if(!empty($cRows[$i]["comment"])){
+                                                echo'
+                                                <p class="suggestion-label" ><span class="glyphicon glyphicon-list-alt"></span> Additional Comments</p>
+                                                <p>' . $cRows[$i]["comment"] . '</p><br>
+                                                ';
+                                            }
+                                            echo'
+                                            <div class="replies-section">
+                                                <p class="suggestion-label"><span class="glyphicon glyphicon-comment"></span> Replies</p>';
+
+    //RETRIEVE THE REPLIES FOR THIS SUGGESTION
+    $sql = "SELECT comment, reply_by FROM replies WHERE suggestion_id=" . $cRows[$i]["id"];
+
+    $result = mysqli_query($mysqli, $sql);
+
+    if(mysqli_num_rows($result) > 0){
+        $replies = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $replies[] = $row;
+        }
+
+        for($x = 0; $x < count($replies); $x++){
+            echo'<p class="reply"><span style="color:#3E81AD">' . $replies[$x]["reply_by"] . '</span>: ' . $replies[$x]["comment"] . '</p>';
+        }
+    }
+
+                                            echo'
+                                            </div>
+                                        </div>
+                                    </div>
+                                    ';
+                                }
+                            }
+
+                            //Quotation errors
+                            echo '
+                            <div class="panel panel-heading" style="margin-bottom: 0px; margin-top: 10px;">
+                                <h3 style="text-align: center; margin-top: 0px; font-weight: bold;">Quotation Errors</h3>
+                            ';
+                            if(empty($qRows)){
+                                echo '
+                                <div class="suggestion">
+                                    <h3>No quotation errors to display</h3>
+                                </div>
+                            </div>
+                                ';
+                            }else{
+                                //pagination
+                                $page = 1;
+                                if(isset($_GET['q_page'])) {
+                                    $page = filter_input(INPUT_GET, 'q_page', FILTER_VALIDATE_INT);
+                                    if($page === false) {
+                                        $page = 1;
+                                    }
+                                }
+                                $items_per_page = 2;
+                                $offset = ($page - 1) * $items_per_page;
+
+                                $row_count = count($qRows);
+                                $page_count = 0;
+                                if ($row_count !== 0){
+                                    $page_count = (int)ceil($row_count / $items_per_page);
+                                    if($page > $page_count) {
+                                        $page = 1;
+                                    }
+                                }
+                                echo '<a name="q_page"></a>';
+                                echo '<ul class="pagination" style="margin-top: 0px; margin-bottom: 0px;">';
+
+                                for ($i = 1; $i <= $page_count; $i++) {
+                                    if ($i === $page) { // this is current page
+                                        echo '<li class="active"><a href="#">' . $i . '</a></li>';
+                                    } else { // show link to other page
+                                        echo '<li><a href="/suggestion.php?ref_index=' . $ref_index . '&post_id=' . $post_id . '&q_page=' . $i . '#q_page">' . $i . '</a></li>';
+                                    }
+                                }
+                                echo '</ul>
+                            </div>';
+
+                            for($i = $offset; $i < $items_per_page + $offset; $i++){
+                                if(empty($qRows[$i])) continue;
 
                                 echo'
-                                <div class="suggestion hvr-border-fade">
-                                    <div class="left_header">
-                                        <h3><span class="label">User:</span> ' . $rows[$i]["username"] . '</h3>
-                                        <a href=\'process_vote_suggestion.php?vote=1&id=' . $rows[$i]["id"] . '&post_id=' . $post_id . '&ref_index=' . $ref_index . '\'><img src="img/like.png"></a>
-                                        <span class="vote_label">Vote: ' . $rows[$i]["vote"] . '</span>
-                                        <a href=\'process_vote_suggestion.php?vote=0&id=' . $rows[$i]["id"] .'&post_id=' . $post_id . '&ref_index=' . $ref_index . '\'><img src="img/dislike.png"></a>
+                                <div class="suggestion">
+                                    <div class="user-header">
+                                        <h3><span class="glyphicon glyphicon-user"></span> User: ' . $qRows[$i]["username"] . '</h3>
+                                        <div class="agreement-buttons">
+                                            <a href=\'process_vote_suggestion.php?vote=1&id=' . $qRows[$i]["id"] . '&post_id=' . $post_id . '&ref_index=' . $ref_index . '\'><button type="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-thumbs-up" style="color:white"></span> I Agree</button></a>
+                                            <span style="font-size: 26px; font-weight: bold; margin-left: 10px; margin-right: 10px;">' . $qRows[$i]["vote"] . '</span>
+                                            <a data-toggle="modal" data-target="#modal' . $qRows[$i]["id"] . '"><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-thumbs-down" style="color:white"></span> I Disagree</button></a>
+                                        </div>
                                     </div>
-                                    <div class="right_header">
-                                        <h3><span class="label">Suggestion</span></h3>
-                                        <p>' . $rows[$i]["correction"] . '</p>
-                                        <h3><span class="label">Additional Comments</span></h3>
-                                        <p>' . $rows[$i]["comment"] . '</p>
+
+                                    <div class="modal fade" id="modal' . $qRows[$i]["id"] . '" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Disagree with this suggestion?</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="default-textbox" method="post" action="process_reply_suggestion.php">
+                                                        <p><span class="glyphicon glyphicon-comment"></span> Why do you disagree? (optional)</p>
+                                                        <p><textarea name="comment" id="comment" placeholder="Add a comment to explain why you disagree with this suggestion"></textarea></p>
+                                                            <input type="hidden" name="by" value="' . $by . '">
+                                                            <input type="hidden" name="id" value="' . $qRows[$i]["id"] . '">
+                                                            <input type="hidden" name="post_id" value="' . $post_id . '">
+                                                            <input type="hidden" name="ref_index" value="' . $ref_index . '">
+                                                            <input type="hidden" name="vote" value="0">
+                                                            <br>
+                                                            <div style="text-align: center;">
+                                                            <button type="submit" class="btn btn-primary">Confirm</button>
+                                                            </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="suggestion-content">
+                                        <p class="suggestion-label" ><i class="fa fa-lightbulb-o"></i> Correction</p>
+                                        <p>' . $qRows[$i]["correction"] . '</p><br>';
+                                        if(!empty($qRows[$i]["comment"])){
+                                                echo'
+                                                <p class="suggestion-label" ><span class="glyphicon glyphicon-list-alt"></span> Additional Comments</p>
+                                                <p>' . $qRows[$i]["comment"] . '</p><br>';
+                                        }
+                                        echo'
+                                        <div class="replies-section">
+                                            <p class="suggestion-label"><span class="glyphicon glyphicon-comment"></span> Replies</p>';
+
+    //RETRIEVE THE REPLIES FOR THIS SUGGESTION
+    $sql = "SELECT comment, reply_by FROM replies WHERE suggestion_id=" . $qRows[$i]["id"];
+
+    $result = mysqli_query($mysqli, $sql);
+
+    if(mysqli_num_rows($result) > 0){
+        $replies = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $replies[] = $row;
+        }
+
+        for($x = 0; $x < count($replies); $x++){
+            echo'<p class="reply"><span style="color:#3E81AD">' . $replies[$x]["reply_by"] . '</span>: ' . $replies[$x]["comment"] . '</p>';
+        }
+    }
+
+                                        echo'
+                                        </div>
                                     </div>
                                 </div>
                                 ';
                             }
-                        }
+                            echo '
+                        </div>';
                     }
                 }
-            }else{
-                echo'
-                <h1 style="text-align: center;">Error: Invalid request</h1><br>
-                <h2 style="text-align: center;">Return to <a href="index.php">home page</a></h2><br>';
             }
-            ?>
-            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            <!-- Include all compiled plugins (below), or include individual files as needed -->
-            <script src="js/bootstrap.min.js"></script>
+        }else{
+            echo'
+            <h1 style="text-align: center;">Error: Invalid request</h1><br>
+            <h2 style="text-align: center;">Return to <a href="index.php">home page</a></h2><br>';
+        }
+        ?>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
