@@ -119,7 +119,7 @@ my_session_start();
                             //Citation errors
                             echo '
                             <div class="panel panel-heading" style="margin-bottom: 0px;">
-                                <h3 style="text-align: center; margin-top: 0px; font-weight: bold;">Citation Errors</h3>
+                                <h3 style="text-align: center; margin-top: 0px; font-weight: bold;">Citation Errors</h3><p style="margin: 0px; padding 0px; text-align: center; font-style: italic;">Error in reference text</p>
                             ';
                             if(empty($cRows)){
                                 echo '
@@ -137,7 +137,7 @@ my_session_start();
                                         $page = 1;
                                     }
                                 }
-                                $items_per_page = 2;
+                                $items_per_page = 3;
                                 $offset = ($page - 1) * $items_per_page;
 
                                 $row_count = count($cRows);
@@ -166,13 +166,16 @@ my_session_start();
                                     echo'
                                     <div class="suggestion">
                                         <div class="user-header">
-                                            <h3><span class="glyphicon glyphicon-user"></span> User: ' . $cRows[$i]["username"] . '</h3>
+                                            <div class="suggestion-username">
+                                                <span class="glyphicon glyphicon-user"></span><span style="font-family: \'Source Sans Pro\', sans-serif; font-weight: bold; font-size: 20px;">User: ' . $cRows[$i]["username"] . '</span>
+                                            </div>
                                             <div class="agreement-buttons">
                                                 <a href=\'process_vote_suggestion.php?vote=1&id=' . $cRows[$i]["id"] . '&post_id=' . $post_id . '&ref_index=' . $ref_index . '\'><button type="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-thumbs-up" style="color:white"></span> I Agree</button></a>
                                                 <span style="font-size: 26px; font-weight: bold; margin-left: 10px; margin-right: 10px;">' . $cRows[$i]["vote"] . '</span>
                                                 <a data-toggle="modal" data-target="#modal' . $cRows[$i]["id"] . '"><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-thumbs-down" style="color:white"></span> I Disagree</button></a>
                                             </div>
                                         </div>
+
 
                                         <div class="modal fade" id="modal' . $cRows[$i]["id"] . '" role="dialog">
                                             <div class="modal-dialog">
@@ -240,7 +243,7 @@ my_session_start();
                             //Quotation errors
                             echo '
                             <div class="panel panel-heading" style="margin-bottom: 0px; margin-top: 10px;">
-                                <h3 style="text-align: center; margin-top: 0px; font-weight: bold;">Quotation Errors</h3>
+                                <h3 style="text-align: center; margin-top: 0px; font-weight: bold;">Quotation Errors</h3><p style="margin: 0px; padding 0px; text-align: center; font-style: italic;">Error of interpretation</p>
                             ';
                             if(empty($qRows)){
                                 echo '
@@ -258,7 +261,7 @@ my_session_start();
                                         $page = 1;
                                     }
                                 }
-                                $items_per_page = 2;
+                                $items_per_page = 3;
                                 $offset = ($page - 1) * $items_per_page;
 
                                 $row_count = count($qRows);
@@ -288,7 +291,10 @@ my_session_start();
                                 echo'
                                 <div class="suggestion">
                                     <div class="user-header">
-                                        <h3><span class="glyphicon glyphicon-user"></span> User: ' . $qRows[$i]["username"] . '</h3>
+                                        <div class="suggestion-username">
+                                            <span class="glyphicon glyphicon-user"></span> <span style="font-family: \'Source Sans Pro\', sans-serif; font-weight: bold; font-size: 20px;">User: ' . $qRows[$i]["username"] . '
+                                            </span>
+                                        </div>
                                         <div class="agreement-buttons">
                                             <a href=\'process_vote_suggestion.php?vote=1&id=' . $qRows[$i]["id"] . '&post_id=' . $post_id . '&ref_index=' . $ref_index . '\'><button type="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-thumbs-up" style="color:white"></span> I Agree</button></a>
                                             <span style="font-size: 26px; font-weight: bold; margin-left: 10px; margin-right: 10px;">' . $qRows[$i]["vote"] . '</span>
@@ -366,6 +372,11 @@ my_session_start();
             <h1 style="text-align: center;">Error: Invalid request</h1><br>
             <h2 style="text-align: center;">Return to <a href="index.php">home page</a></h2><br>';
         }
+        ?>
+        </div>
+
+        <?php
+        include 'footer.php';
         ?>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

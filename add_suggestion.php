@@ -116,6 +116,11 @@ my_session_start();
             <h1 style="text-align: center; font-weight: bold; color: white;">Error: Invalid request</h1><br><h2 style="text-align: center; color: white;">Return to <a href="index.php">home page</a></h2><br>';
         }
         ?>
+
+    <?php
+    include 'footer.php';
+    ?>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Bootstrap -->

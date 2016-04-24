@@ -15,5 +15,9 @@ if (! $error) {
     <body>
         <h1>There was a problem</h1>
         <p class="error"><?php echo $error; ?></p>
+
+        <?php
+        include 'footer.php';
+        ?>
     </body>
 </html>

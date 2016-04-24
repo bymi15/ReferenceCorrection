@@ -82,6 +82,11 @@ my_session_start();
         }
         ?>
 
+        </div>
+
+        <?php
+        include 'footer.php';
+        ?>
         <!--My scripts-->
         <script src="js/form.js"></script>
         <script src="js/upload_file.js"></script>

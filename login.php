@@ -23,12 +23,12 @@
         <div class="login">
             <form method="post" action="process_login.php" onsubmit="return genHash(this)">
                 <h1>Login</h1>
-                <p><input type="text" name="username" id="username" value="" placeholder="Username" maxlength="50"></p>
+                <p><input type="text" name="username" id="username" value="<?php if(isset($_COOKIE['remember_me'])){echo $_COOKIE['remember_me'];}?>" placeholder="Username" maxlength="50"></p>
                 <p><input type="password" name="password" id="password" value="" placeholder="Password" maxlength="50"></p>
                 <p class="remember_me">
                     <label>
-                        <input type="checkbox" name="remember_me" id="remember_me">
-                        Remember me on this computer
+                        <input type="checkbox" name="remember_me" id="remember_me" <?php if(isset($_COOKIE['remember_me'])){echo 'checked';}?>>
+                        Remember my username
                     </label>
                 </p>
                 <p class="submit"><input type="submit" value="Login"/></p>
@@ -56,19 +56,21 @@
                     <h4 class="modal-title">Reset your password</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="default-textbox" method="post" action="">
+                    <form class="default-textbox" method="post" action="process_request_reset_password.php">
                         <p><span class="glyphicon glyphicon-pencil"></span> Enter your username:</p>
                         <input type="text" name="reset_username" id="reset_username" value="" maxlength="50" autofocus>
+                        <p style="text-align: center; margin-top: 20px;"><button type="submit" class="btn btn-primary">Submit Request</button></p>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Submit Request</button>
                 </div>
             </div>
         </div>
     </div>
 
     </div>
+
+    <?php
+    include 'footer.php';
+    ?>
     <!--My Script-->
     <script src="js/sha512.js"></script>
     <script src="js/form.js"></script>

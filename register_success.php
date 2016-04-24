@@ -18,7 +18,9 @@
                         <p>You can now go back to the <a href="login.php">login page</a> and log in.</p><br>
                         <div style="text-align: center;"><a href="login.php" class="submit"><input type="button" style="" value="Return to login page" /></a></div>
                     </div>
-                 </div>
+                 </div>';
+                 include 'footer.php';
+        echo '
             </body>';
     }
 ?>

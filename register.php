@@ -53,7 +53,9 @@ include_once 'include/functions.php';
         </div>
     </div>
 
-
+    <?php
+    include 'footer.php';
+    ?>
     <!--My Script-->
     <script src="js/sha512.js"></script>
     <script src="js/form.js"></script>
